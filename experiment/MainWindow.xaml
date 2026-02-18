@@ -1,0 +1,48 @@
+﻿<Window x:Class="experiment.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:experiment"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+
+        <TabControl>
+            <TabItem Header="Story">
+                <Grid Background="LightBlue">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="154*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border BorderBrush="Black" BorderThickness="1" Grid.Column="1" HorizontalAlignment="Center" Height="320" Margin="0,10,0,0" VerticalAlignment="Top" Width="256">
+                        <Image HorizontalAlignment="Left" Height="317" VerticalAlignment="Top" Width="254" Margin="-1,-1,0,0"/>
+                    </Border>
+                    <Label Grid.Column="1" Content="Story card" HorizontalAlignment="Center" Height="25" Margin="0,335,0,0" VerticalAlignment="Top" Width="69"/>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Crew">
+                <Grid Background="LightBlue">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="21*"/>
+                        <ColumnDefinition Width="773*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="24" Margin="257,10,0,0" Grid.Column="1"><Run Language="en-ie" Text="Escape the dark sector"/></TextBlock>
+                    <Image x:Name="CrewPic1" HorizontalAlignment="Left" Height="197" Margin="257,42,0,0" VerticalAlignment="Top" Width="112" OpacityMask="Red" Source="/20251006_233842656_iOS.jpg" Grid.Column="1"/>
+                    <Image x:Name="CrewPic1_Copy" HorizontalAlignment="Left" Height="197" Margin="376,42,0,0" VerticalAlignment="Top" Width="112" OpacityMask="Red" Source="/20251006_233842656_iOS.jpg" Grid.Column="1"/>
+                    <Label Content="Crew 1" HorizontalAlignment="Left" Height="27" Margin="285,237,0,0" VerticalAlignment="Top" Width="56" Grid.Column="1"/>
+                    <Label Content="Crew 2" HorizontalAlignment="Left" Height="27" Margin="404,237,0,0" VerticalAlignment="Top" Width="56" Grid.Column="1"/>
+                    <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="190" Margin="493,42,0,0" VerticalAlignment="Top" Width="194" Grid.Column="1"/>
+                    <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="190" Margin="58,42,0,0" VerticalAlignment="Top" Width="194" Grid.Column="1"/>
+                    <Label Content="Inventory" HorizontalAlignment="Left" Height="27" Margin="541,237,0,0" VerticalAlignment="Top" Width="88" Grid.Column="1"/>
+                    <Label Content="Inventory" HorizontalAlignment="Left" Height="27" Margin="111,237,0,0" VerticalAlignment="Top" Width="88" Grid.Column="1"/>
+                    <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="73" Margin="58,269,0,0" VerticalAlignment="Top" Width="193" Grid.Column="1"/>
+                    <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="67" Margin="495,275,0,0" VerticalAlignment="Top" Width="192" Grid.Column="1"/>
+
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
