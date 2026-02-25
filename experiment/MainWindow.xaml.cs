@@ -18,7 +18,10 @@ namespace experiment
     {
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent(); 
+            
+
+
         }
     }
 }

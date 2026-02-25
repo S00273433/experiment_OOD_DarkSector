@@ -10,10 +10,12 @@
 
   <ItemGroup>
     <None Remove="20251006_233842656_iOS.jpg" />
+    <None Remove="Screenshot 2026-02-25 095010.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="20251006_233842656_iOS.jpg" />
+    <Resource Include="Screenshot 2026-02-25 095010.png" />
   </ItemGroup>
 
 </Project>
