@@ -80,6 +80,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\202602251207174_InitialCreate.cs" />
+    <Compile Include="Migrations\202602251207174_InitialCreate.Designer.cs">
+      <DependentUpon>202602251207174_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202603041130282_Migration1.cs" />
+    <Compile Include="Migrations\202603041130282_Migration1.Designer.cs">
+      <DependentUpon>202603041130282_Migration1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -94,6 +103,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Migrations\202602251207174_InitialCreate.resx">
+      <DependentUpon>202602251207174_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202603041130282_Migration1.resx">
+      <DependentUpon>202603041130282_Migration1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -108,10 +123,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Screenshot 2026-02-25 095010.png" />
+    <Resource Include="CardImage\Screenshot 2026-02-25 095010.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="1.jpg" />
+    <Resource Include="CardImage\1.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -32,6 +32,17 @@ namespace EscapeDS
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+
+            //create new deck
+
+            //get 14 cards from deck
+
+            //add these 14 cards to a game deck
+
+
+
+
+
             CardData db = new CardData();
 
             var query = from c in db.Card
