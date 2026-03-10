@@ -33,7 +33,7 @@ namespace EscapeDS
 
 
 
-        CardData db = new CardData();
+        public CardData db = new CardData();
 
         public int Strength
         {
@@ -160,18 +160,11 @@ public class StartCard : Card //how do i add these to the database?
 
 }
 
-
-
-
-
-
-
-
-
 public class CardData : DbContext
 {
     public CardData() : base("CardDataFeb25") { }
     public DbSet<Card> Card { get; set; }
 }
+
 }
 

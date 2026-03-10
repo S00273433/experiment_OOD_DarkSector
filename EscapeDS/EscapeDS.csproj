@@ -74,6 +74,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Card.cs" />
+    <Compile Include="Combat.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -87,6 +88,10 @@
     <Compile Include="Migrations\202603041130282_Migration1.cs" />
     <Compile Include="Migrations\202603041130282_Migration1.Designer.cs">
       <DependentUpon>202603041130282_Migration1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202603102116491_March10.cs" />
+    <Compile Include="Migrations\202603102116491_March10.Designer.cs">
+      <DependentUpon>202603102116491_March10.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Player.cs" />
@@ -108,6 +113,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202603041130282_Migration1.resx">
       <DependentUpon>202603041130282_Migration1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202603102116491_March10.resx">
+      <DependentUpon>202603102116491_March10.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
