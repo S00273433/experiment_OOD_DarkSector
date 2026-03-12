@@ -34,20 +34,16 @@ namespace EscapeDS
 
 
         public CardData db = new CardData();
+        Random rand = new Random();
 
         public int Strength
         {
             set
             {
-                //remake this when doing combat
-                int baseStrength = 0;
 
-                Random rand = new Random();
-                baseStrength += rand.Next(1, 6); // Random strength between 1 and 5
+                //Strength = this.Strength;
 
-                strength = baseStrength; // Set the strength property
-
-
+                
             }
 
             get
@@ -71,7 +67,7 @@ namespace EscapeDS
         public List<Card> AllCards { get; set; }
 
         //ctor which creates the deck
-        public Deck()
+        /*public Deck()
         {
             //Generate all cards, 3 (start) + (8 x 3 story cards by act 1 2 and 3) + 3(boss cards) -  (30 in total)
 
@@ -117,7 +113,7 @@ namespace EscapeDS
 
             AllCards = new List<Card>() { sc1, a1, a2, a3, b1 };
 
-        }
+        }*/
 
         //deal card method which will get the top card
         public Card DealCard(CardType cardType)
@@ -164,6 +160,8 @@ public class CardData : DbContext
 {
     public CardData() : base("CardDataFeb25") { }
     public DbSet<Card> Card { get; set; }
+
+        
 }
 
 }

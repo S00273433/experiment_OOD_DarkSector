@@ -81,17 +81,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\202602251207174_InitialCreate.cs" />
-    <Compile Include="Migrations\202602251207174_InitialCreate.Designer.cs">
-      <DependentUpon>202602251207174_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202603041130282_Migration1.cs" />
-    <Compile Include="Migrations\202603041130282_Migration1.Designer.cs">
-      <DependentUpon>202603041130282_Migration1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202603102116491_March10.cs" />
-    <Compile Include="Migrations\202603102116491_March10.Designer.cs">
-      <DependentUpon>202603102116491_March10.cs</DependentUpon>
+    <Compile Include="Migrations\202603112018297_Reset.cs" />
+    <Compile Include="Migrations\202603112018297_Reset.Designer.cs">
+      <DependentUpon>202603112018297_Reset.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Player.cs" />
@@ -108,14 +100,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\202602251207174_InitialCreate.resx">
-      <DependentUpon>202602251207174_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202603041130282_Migration1.resx">
-      <DependentUpon>202603041130282_Migration1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202603102116491_March10.resx">
-      <DependentUpon>202603102116491_March10.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202603112018297_Reset.resx">
+      <DependentUpon>202603112018297_Reset.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

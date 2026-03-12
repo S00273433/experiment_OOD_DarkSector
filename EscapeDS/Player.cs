@@ -9,7 +9,8 @@ namespace EscapeDS
     public class Player
     {
         private int health; 
-
+        public bool InCombat { get; set; }
+        
         public int Health
         {
             set
@@ -31,7 +32,7 @@ namespace EscapeDS
             get { return Health; }
         }
 
-
+        
 
 
         public Player()
@@ -42,5 +43,19 @@ namespace EscapeDS
         {
             return true;
         }
+        
     }
+    public class Inventory
+    {
+        public List<Inventory> Items {  get; set; }
+        
+        public Inventory()
+        {
+            Items = new List<Inventory>();
+            Items.Add(new Inventory());
+        }
+    }
+
+    
+
 }
