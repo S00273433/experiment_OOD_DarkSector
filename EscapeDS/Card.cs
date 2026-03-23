@@ -32,7 +32,6 @@ namespace EscapeDS
         public int CardPenalty { get; set; }
 
 
-
         public CardData db = new CardData();
         Random rand = new Random();
 

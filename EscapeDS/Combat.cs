@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace EscapeDS
 {
     public class Combat 
@@ -41,21 +42,26 @@ namespace EscapeDS
         }
         
 
-        string ActionChoice;
-        string WeaponChoice;
-        int W1AttackDamage = 2;
+        public string ActionChoice;
+        public string WeaponChoice;
+        public int W1AttackDamage = 2;
+        public int W1Ammo = 2;
+
+        public int W2AttackDamage = 1;
+        public int W2Ammo = 1;
         
         
         public void DoCombat(Player player, Card card, string ActionChoice)
         {
             
-            Console.WriteLine("Choose action: 1) Attack \n2)Flank \n3) Heal");
+            Console.WriteLine("Choose action: 1) Attack \n2)Flank \n3) Heal\n Reload");
             ActionChoice = Console.ReadLine().ToLower();
 
             switch (ActionChoice)
             {
                 case "1":
                 {
+                        int damage;
                         Console.WriteLine("Attack! \nSelect which weapon slot to use. \n1) ");
                         WeaponChoice = Console.ReadLine().ToLower();
                         
@@ -63,9 +69,24 @@ namespace EscapeDS
                         {
                             case "1":
                                 {
-
-
+                                    if (W1Ammo > 0)
+                                    {
+                                        damage = W1AttackDamage;
+                                        this.card.Strength -= damage;
+                                        TargetHit();
+                                    }
                                     break; 
+                                }
+
+                            case "2":
+                                {
+                                    if (W2Ammo > 0)
+                                    {
+                                        damage = W2AttackDamage;
+                                        this.card.Strength -= damage;
+                                        TargetHit();
+                                    }
+                                    break;
                                 }
 
                             default:
@@ -87,7 +108,18 @@ namespace EscapeDS
 
         public int TargetHit()
         {
-            AttackDie.Next(1, 6);
+            int result;
+            result = AttackDie.Next(1, 6);
+            switch (result)
+            {
+                case 1:
+                    {
+
+                        break;
+                    }
+            
+            }
+
 
             return 0; //just to clear error
         }

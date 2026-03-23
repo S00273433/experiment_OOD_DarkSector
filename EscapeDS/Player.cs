@@ -40,7 +40,7 @@ namespace EscapeDS
          
         }
         public bool DoBattle(Card competitingCard)
-        {
+        {   
             return true;
         }
         
