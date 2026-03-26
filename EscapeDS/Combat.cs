@@ -18,8 +18,8 @@ namespace EscapeDS
         //3. shoot - if shoot, roll dice and apply result - hits, jams, and misses. Then, roll enemy Hit Die, resolve result. Damage on hits is stored in Cards database
         //4. Compare rolled hits with enemy Strength, which is stored in Cards database. minus-- strength with every hit, when strength is 0, enemy killed, receive rewards.
         
-        Card card;
-        Player Player;
+        private Card card;
+        private Player Player;
 
         int Strength;
         int RangedDamage;
@@ -46,9 +46,11 @@ namespace EscapeDS
         public string WeaponChoice;
         public int W1AttackDamage = 2;
         public int W1Ammo = 2;
+        public bool W1IsJammed = false;
 
         public int W2AttackDamage = 1;
         public int W2Ammo = 1;
+        public bool W2IsJammed = false;
         
         
         public void DoCombat(Player player, Card card, string ActionChoice)
@@ -71,9 +73,10 @@ namespace EscapeDS
                                 {
                                     if (W1Ammo > 0)
                                     {
+                                        TryHitTarget();
                                         damage = W1AttackDamage;
                                         this.card.Strength -= damage;
-                                        TargetHit();
+                                        
                                     }
                                     break; 
                                 }
@@ -82,9 +85,46 @@ namespace EscapeDS
                                 {
                                     if (W2Ammo > 0)
                                     {
+                                        switch (TryHitTarget())
+                                        { 
+                                        case 1:
+                                            {
+                                                    damage = 0;
+                                                    ResolveHitDie();
+                                                    break;
+                                            }
+                                        case 2:
+                                                {
+                                                    damage = 0;
+                                                    W2IsJammed = true;
+                                                    break;
+                                                }
+                                            case 3:
+                                                {
+                                                    damage = W2AttackDamage;
+                                                    break;
+                                                }
+                                            case 4:
+                                                {
+                                                    damage = W2AttackDamage;
+                                                    break;
+                                                }
+                                            case 5:
+                                                {
+                                                    damage = W2AttackDamage;
+                                                    break;
+                                                }
+                                            case 6:
+                                                {
+                                                    damage = W2AttackDamage * 2;
+                                                    Console.WriteLine("Crit!");
+                                                }
+
+                                                break ;
+                                        }
+                                        
                                         damage = W2AttackDamage;
-                                        this.card.Strength -= damage;
-                                        TargetHit();
+                                        this.card.Strength -= damage; 
                                     }
                                     break;
                                 }
@@ -106,22 +146,81 @@ namespace EscapeDS
 
         }
 
-        public int TargetHit()
+        private void ResolveHitDie(Player player, Card card)
         {
             int result;
-            result = AttackDie.Next(1, 6);
-            switch (result)
+            result = HitDie.Next(1, 4);
+
+            switch(result)
             {
                 case 1:
                     {
-
+                        player.TakeDamage(0);
                         break;
                     }
-            
+
+                case 2:
+                    {
+                        Player.TakeDamage(card.RangeDamage);
+                        break;
+                    }
+
+                case 3:
+                    {
+                        Player.TakeDamage(card.RangeDamage);
+                        break;
+                    }
+
+
+                  default:;
+                    break;
+            }
+
+        }
+
+        public int TryHitTarget()
+        {
+            int result;
+            result = AttackDie.Next(1, 7);
+            switch (result)
+            {
+                case 1:
+                {
+                        Console.WriteLine("miss");
+                        break;
+
+                    }
+
+                case 2:
+                    {
+                        Console.WriteLine("Jam");
+                        break;
+                    }
+                    case 3:
+                    {
+                        Console.WriteLine("Hit");
+                        break;
+                    }
+                    case 4:
+                    {
+                        Console.WriteLine("Hit");
+                        break;
+                    }
+                case 5:
+                    {
+                        Console.WriteLine("Hit");
+                        break;
+                    }
+                case 6:
+                    {
+                        Console.WriteLine("Double hit!");
+                        break;
+                    }
+
             }
 
 
-            return 0; //just to clear error
+            return result; //just to clear error
         }
 
 

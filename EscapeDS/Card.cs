@@ -27,7 +27,7 @@ namespace EscapeDS
 
         public int RangeDamage;
         public int MeleeDamage; //may cut out
-        private int strength;
+        private int strength; //same as Health 
         public int CardReward { get; set; }
         public int CardPenalty { get; set; }
 
@@ -51,6 +51,11 @@ namespace EscapeDS
 
             }
         }
+        public void TakeDamage(int amount)
+        {
+            strength -= amount;
+        }
+
 
 
         public override string ToString()

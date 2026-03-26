@@ -32,7 +32,12 @@ namespace EscapeDS
             get { return Health; }
         }
 
-        
+        public void TakeDamage(int amount)
+        {
+            Health -= amount;
+        }
+
+
 
 
         public Player()
