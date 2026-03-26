@@ -83,48 +83,51 @@ namespace EscapeDS
 
                             case "2":
                                 {
-                                    if (W2Ammo > 0)
+                                    if (W2Ammo > 0) //needs something like IsJammed, IsReloading -> CanFire = false; which then resets on new turn. 
                                     {
                                         switch (TryHitTarget())
                                         { 
                                         case 1:
                                             {
                                                     damage = 0;
-                                                    ResolveHitDie();
+                                                    ResolveHitDie(player,card);
                                                     break;
                                             }
                                         case 2:
                                                 {
                                                     damage = 0;
                                                     W2IsJammed = true;
+                                                    ResolveHitDie(player, card);
                                                     break;
                                                 }
                                             case 3:
                                                 {
                                                     damage = W2AttackDamage;
+                                                    ResolveHitDie(player, card);
                                                     break;
                                                 }
                                             case 4:
                                                 {
                                                     damage = W2AttackDamage;
+                                                    ResolveHitDie(player, card);
                                                     break;
                                                 }
                                             case 5:
                                                 {
                                                     damage = W2AttackDamage;
+                                                    ResolveHitDie(player, card);
                                                     break;
                                                 }
                                             case 6:
                                                 {
                                                     damage = W2AttackDamage * 2;
                                                     Console.WriteLine("Crit!");
+                                                    ResolveHitDie(player, card);     
                                                 }
 
                                                 break ;
                                         }
-                                        
-                                        damage = W2AttackDamage;
-                                        this.card.Strength -= damage; 
+
                                     }
                                     break;
                                 }
