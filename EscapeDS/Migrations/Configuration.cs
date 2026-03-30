@@ -5,20 +5,22 @@
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<EscapeDS.CardData>
+    public sealed class Configuration : DbMigrationsConfiguration<EscapeDS.CardData>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
-            ContextKey = "EscapeDS.CardData";
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(EscapeDS.CardData context)
         {
-            //  This method will be called after migrating to the latest version.
+            /*var deck = new EscapeDS.Deck();
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method
-            //  to avoid creating duplicate seed data.
+            // Add all cards from the deck to the database
+            foreach (var card in deck.AllCards)
+            {
+                context.Card.AddOrUpdate(c => c.CardID, card);
+            }*/
         }
     }
 }

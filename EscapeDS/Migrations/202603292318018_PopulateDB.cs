@@ -3,12 +3,12 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Reset : DbMigration
+    public partial class PopulateDB : DbMigration
     {
-       public override void Up()
+        public override void Up()
         {
             CreateTable(
-                "dbo.Cards",
+                "dbo.Cards1",
                 c => new
                     {
                         CardID = c.Int(nullable: false, identity: true),
@@ -16,9 +16,11 @@
                         CardDescription = c.String(),
                         Image = c.String(),
                         TypeOfCard = c.Int(nullable: false),
+                        RangeDamage = c.Int(nullable: false),
+                        MeleeDamage = c.Int(nullable: false),
+                        Strength = c.Int(nullable: false),
                         CardReward = c.Int(nullable: false),
                         CardPenalty = c.Int(nullable: false),
-                        Strength = c.Int(nullable: false),
                         BossID = c.Int(),
                         BossName = c.String(),
                         BossImage = c.String(),
@@ -34,7 +36,7 @@
         
         public override void Down()
         {
-            DropTable("dbo.Cards");
+            DropTable("dbo.Cards1");
         }
     }
 }

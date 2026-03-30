@@ -11,12 +11,19 @@ namespace Tester
     {
         static void Main(string[] args)
         {
-
-           Deck deck = new Deck();
-
+            Deck deck = new Deck();
             Card card = deck.DealCard(CardType.Act1);
+            Combat combat = new Combat(card);
+            Player player = new Player();
+           
+
+           
 
             Console.WriteLine(card);
+
+            
+
+            combat.DoCombat(player, card, "Attack");
 
 
         }

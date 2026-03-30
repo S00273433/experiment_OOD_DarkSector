@@ -15,7 +15,7 @@ namespace EscapeDS
         {
             set
             {
-                int BaseHealth = 12;
+                int Baseealth = 12;
                 if (value < 0)
                 {
                     health = 0; // Ensure health does not go below 0
@@ -29,7 +29,7 @@ namespace EscapeDS
                     health = value;
                 }
             } 
-            get { return Health; }
+            get { return health; }
         }
 
         public void TakeDamage(int amount)
