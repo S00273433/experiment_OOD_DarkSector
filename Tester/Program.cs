@@ -31,7 +31,7 @@ namespace Tester
 
             
 
-            combat.DoCombat(player, card, "Attack");
+            //combat.DoCombat(player, card, "Attack");
 
 
         }
