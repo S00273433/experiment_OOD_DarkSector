@@ -18,7 +18,7 @@ namespace DatabaseManagement
             CardData db = new CardData();
             using (db)
             {
-                
+                //1st april note -> update descirptions, cut down extra cards, add migration and update
                
                 
                 Card sc1 = new Card() { CardID = 1, TypeOfCard = CardType.StartCard, CardName = "Detention", CardDescription = "You awake in a small, dark cell. The inobservant gaurds missed your suit's hidden compartment, where you store a small laser cutter. You melt through the iron bars of the cell and escape, to find the jail otherwise empty." }; // start weapon + 1 item card
