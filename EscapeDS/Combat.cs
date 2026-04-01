@@ -10,7 +10,7 @@ namespace EscapeDS
     public class Combat 
     {
         public enum CombatState { ChooseAction, ReturnFire, ResolvingCombat, CombatEnded } //different stages for each turn
-        CombatState currentState;
+        CombatState currentState = CombatState.ChooseAction;
         //class that runs the combat encounters in the game. pulls stats from whatever card is currently active in the databse. 
 
         //needs turns
@@ -23,25 +23,30 @@ namespace EscapeDS
 
         private Card card;
         private Player player;
+        private Inventory Inventory;
+        private EventsTurns EvTurns;
 
 
 
         int Strength;
         int RangedDamage;
         int Health;
+        int Reward;
 
         public Random AttackDie = new Random();
         public Random HitDie = new Random();
         public int CurrentCard { get; set; }
         
-        public Combat(Card card, Player player)
+        public Combat(Card card, Player player, EventsTurns EvTurns)
         {
             this.player = player;
             this.card = card;
+            this.EvTurns = EvTurns;
             int cardID = card.CardID;
             CurrentCard = cardID;
             Strength = card.Strength;
             Health = player.Health;
+            Reward = card.CardReward;
 
 
             //Compare the card's strentgh against the payer's dice roll every turn.
@@ -67,14 +72,12 @@ namespace EscapeDS
 
         public void DoCombat(Player player, Card card, string ActionChoice)
         {
-            this.card = card;  // Initialize the card field first
-            Strength = card.Strength;
-            CurrentCard = card.CardID;
-            this.player = player; // Initialize the player field after the card field
+
             
             currentState = CombatState.ChooseAction;
             while (currentState == CombatState.ChooseAction)
             {
+                
                 Console.WriteLine("\nChoose action: \n1) Attack \n2) Heal\n 3)Reload");
                 ActionChoice = Console.ReadLine().ToLower();
 
@@ -286,7 +289,7 @@ namespace EscapeDS
                             Console.WriteLine($"heal drone activated - Health increased by 1\n health now{player.Health}");
                             Console.WriteLine("Heal unavailable until next combat");
                             IsHealUsed = true;
-
+                            currentState = CombatState.ChooseAction;    
                             break;
                         }
 
@@ -319,11 +322,17 @@ namespace EscapeDS
                                     break;
                             }
                             break;
+
                         }
 
 
                     default:
                         break;
+                }
+                if (card.Strength == 0)
+                {
+                    currentState = CombatState.CombatEnded;
+                    EndCombat(card);
                 }
             }
 
@@ -409,6 +418,16 @@ namespace EscapeDS
 
 
             return result; //just to clear error
+        }
+
+
+        public void EndCombat(Card card)
+        {
+            player.Heal(Reward);
+            Console.WriteLine($"Enemy defeated - Healed by {Reward}");
+            Console.WriteLine($"Player health now {Health}");
+            EvTurns.LeaveCombat();
+
         }
 
 

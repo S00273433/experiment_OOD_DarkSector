@@ -56,9 +56,9 @@ namespace EscapeDS
             Player player = new Player();
             Card card1 = new Card() { CardName = "Card1", Image = "1.jpg" };
 
-                bool result = player.DoBattle(card1);
+             //   bool result = player.DoBattle(card1);
     
-                MessageBox.Show(result.ToString());
+                // MessageBox.Show(result.ToString());
 
 
         }

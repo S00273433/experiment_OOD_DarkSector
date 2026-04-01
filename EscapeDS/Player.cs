@@ -49,10 +49,7 @@ namespace EscapeDS
         { 
          
         }
-        public bool DoBattle(Card competitingCard)
-        {   
-            return true;
-        }
+        
         
     }
     public class Inventory
@@ -63,6 +60,11 @@ namespace EscapeDS
         {
             Items = new List<Inventory>();
             Items.Add(new Inventory());
+        }
+
+        public void AddToInventory(Inventory item)
+        {
+            Items.Add(item);
         }
     }
 
