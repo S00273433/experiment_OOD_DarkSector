@@ -13,9 +13,13 @@ namespace Tester
         {
             Deck deck = new Deck();
             Card card = deck.DealCard(CardType.Act1);
-            Combat combat = new Combat(card);
+            card = card.CardID == 1 ? card : deck.DealCard(CardType.Act1);
+            card = card.CardID == 2 ? card : deck.DealCard(CardType.Act1);
+            card = card.CardID == 3 ? card : deck.DealCard(CardType.Act1);
+            card = card.CardID == 4 ? card : deck.DealCard(CardType.Act1);
+            card = card.CardID == 5 ? card : deck.DealCard(CardType.Act1);
             Player player = new Player();
-           
+            Combat combat = new Combat(card, player);
 
            
 

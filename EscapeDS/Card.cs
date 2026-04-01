@@ -63,6 +63,8 @@ namespace EscapeDS
     public class Deck
     {
         public List<Card> AllCards { get; set; }
+        public List<Card> ShuffledCards { get; set; }
+
 
         //ctor which creates the deck
         public Deck()
@@ -131,7 +133,23 @@ namespace EscapeDS
             return null; // Return null if no card of the specified type is found
         }
 
-}
+        public Card ShuffleCards()
+        {
+
+            Random rand = new Random();
+            int n = AllCards.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = rand.Next(n + 1);
+                Card value = AllCards[k];
+                AllCards[k] = AllCards[n];
+                AllCards[n] = value;
+            }
+            return null;
+        }
+
+    }
 
 
 

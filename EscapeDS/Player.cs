@@ -8,14 +8,14 @@ namespace EscapeDS
 {
     public class Player
     {
-        private int health; 
+        private int health = 12;
         public bool InCombat { get; set; }
         
         public int Health
         {
             set
             {
-                int Baseealth = 12;
+                
                 if (value < 0)
                 {
                     health = 0; // Ensure health does not go below 0
@@ -35,6 +35,11 @@ namespace EscapeDS
         public void TakeDamage(int amount)
         {
             Health -= amount;
+        }
+
+        public void Heal(int amount)
+        {
+            Health += amount;
         }
 
 
