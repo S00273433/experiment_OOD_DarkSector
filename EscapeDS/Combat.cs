@@ -19,6 +19,8 @@ namespace EscapeDS
         //3. shoot - if shoot, roll dice and apply result - hits, jams, and misses. Then, roll enemy Hit Die, resolve result. Damage on hits is stored in Cards database
         //4. Compare rolled hits with enemy Strength, which is stored in Cards database. minus-- strength with every hit, when strength is 0, enemy killed, receive rewards.
 
+        //combat basically fully implemented 01/04/2026 in Tester. needs to link to XAML and such, not started yet...
+
         private Card card;
         private Player player;
 
