@@ -31,8 +31,10 @@ namespace EscapeDS
         public int CardReward { get; set; }
         public int CardPenalty { get; set; }
 
+        public bool IsActive { get; set; }
 
-        
+
+
         Random rand = new Random();
 
         
@@ -148,6 +150,8 @@ namespace EscapeDS
             }
             return null;
         }
+
+        
 
     }
 
