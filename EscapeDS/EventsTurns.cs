@@ -14,18 +14,21 @@ namespace EscapeDS
         public Card currentCard;
         private Combat Combat;
 
+        public int ActionChoice;
+
         public enum GameState { Begin, Describe, Decide, CombatStarted, Resolve }
         GameState CurrentGameState;
-        
-        
+
+
         public EventsTurns(Deck deck, Player player, Card currentCard)
         {
-            deck.ShuffleCards();
+           // deck.ShuffleCards();
             this.deck = deck;
             this.player = player;
             this.currentCard = currentCard;
             CurrentGameState = GameState.Begin;
             PlayDeck();
+            
         }
 
         public void PlayDeck()
@@ -78,11 +81,21 @@ namespace EscapeDS
                         {
                             currentCard.IsActive = false;
                         }
+                        else
+                        {
+                            Console.WriteLine("Invalid input. Please type 'Next'.");
+                        }
                     }
                 }
             }
 
             Console.WriteLine("All cards have been dealt. Game Over.");
+        }
+
+        public void PathChoice()
+        {
+            
+
         }
 
         public void LeaveCombat()

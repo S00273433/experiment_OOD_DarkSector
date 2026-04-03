@@ -69,6 +69,10 @@
     <Compile Include="Migrations\202603292315039_UpdateDB2.Designer.cs">
       <DependentUpon>202603292315039_UpdateDB2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202604032210508_CardDataApr26.cs" />
+    <Compile Include="Migrations\202604032210508_CardDataApr26.Designer.cs">
+      <DependentUpon>202604032210508_CardDataApr26.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -95,6 +99,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202603292315039_UpdateDB2.resx">
       <DependentUpon>202603292315039_UpdateDB2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202604032210508_CardDataApr26.resx">
+      <DependentUpon>202604032210508_CardDataApr26.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
