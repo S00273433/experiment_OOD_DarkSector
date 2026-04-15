@@ -22,7 +22,7 @@ namespace EscapeDS
 
         public EventsTurns(Deck deck, Player player, Card currentCard)
         {
-           // deck.ShuffleCards();
+            deck.ShuffleCards();
             this.deck = deck;
             this.player = player;
             this.currentCard = currentCard;
@@ -94,7 +94,8 @@ namespace EscapeDS
 
         public void PathChoice()
         {
-            
+            string choice;
+            Console.WriteLine("Choose a path");
 
         }
 

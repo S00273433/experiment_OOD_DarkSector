@@ -10,22 +10,25 @@ namespace EscapeDS
 
 
     public enum CardType { StartCard, Act1, Act2, Act3, Boss }
-    public enum DamageWeakness { Ballistic,Energy, Exposive }
+    public enum DamageWeakness { Ballistic, Energy, Exposive }
     public enum WeaponType { Ballistic, Energy, Explosive }
 
     public class Card
     {
+
+
+
         //chapter cards for DarkSector
 
         public int CardID { get; set; }
         public string CardName { get; set; }
         public string CardDescription { get; set; }
-        
+
         public string Image { get; set; }
 
         public CardType TypeOfCard { get; set; }
 
-        public int RangeDamage { get ; set; } 
+        public int RangeDamage { get; set; }
         public int MeleeDamage { get; set; } //may cut out
         public int Strength { get; set; } //same as Health 
         public int CardReward { get; set; }
@@ -35,7 +38,7 @@ namespace EscapeDS
 
 
 
-        
+
         public void TakeDamage(int amount)
         {
             Strength -= amount;
@@ -61,6 +64,8 @@ namespace EscapeDS
 
     public class Deck
     {
+        private CardData db = new CardData();
+
         public List<Card> AllCards { get; set; }
         public List<Card> ShuffledCards { get; set; }
 
@@ -68,12 +73,13 @@ namespace EscapeDS
         //ctor which creates the deck
         public Deck()
         {
-            //Generate all cards, 3 (start) + (8 x 3 story cards by act 1 2 and 3) + 3(boss cards) -  (30 in total)
+            #region old data
+            /*//Generate all cards, 3 (start) + (8 x 3 story cards by act 1 2 and 3) + 3(boss cards) -  (30 in total)
 
             //Create 3 start cards
-            Card sc1 = new Card() { CardID = 1, TypeOfCard = CardType.StartCard, CardName = "Detention" }; // start weapon + 1 item card
-            Card sc2 = new Card() { CardID = 2, TypeOfCard = CardType.StartCard, CardName = "Security" }; //start weapon -  1 act 3 card
-            Card sc3 = new Card() { CardID = 3, TypeOfCard = CardType.StartCard, CardName = "The Brig" }; //start weapon + 1 act 3 card
+            Card sc1 = new Card() { CardID = 1, TypeOfCard = CardType.StartCard, CardName = "Detention", CardDescription = "You awake in a small, dark cell. The inobservant gaurds missed your suit's hidden compartment, where you store a small laser cutter. You melt through the iron bars of the cell and escape, to find the jail otherwise empty. A laspistol lays on the gaurd's desk." };  // start weapon + 1 item card
+            Card sc2 = new Card() { CardID = 2, TypeOfCard = CardType.StartCard, CardName = "Security", CardDescription = "You've been seized by gaurds on suspected sabotage charges. They brought you to the detention level, and became distracted when a fight breaks out nearby, which boils over into a class riot. You run for your life, and find a laspistol during the fray." }; //start weapon -  1 act 3 card
+            Card sc3 = new Card() { CardID = 3, TypeOfCard = CardType.StartCard, CardName = "The Brig", CardDescription = "You enter the station a slave, property of a depraved slaver. A moment of quick thinking and impactful violence finds you freed, but confused. You begin to search for a way off the ship, slaver's own gun in hand." }; //start weapon + 1 act 3 card
 
             //Create 8 act 1 cards
             Card a1 = new Card() { CardID = 4, TypeOfCard = CardType.Act1, CardPenalty = -2, CardReward = 2, CardName = "The Assasin 1", CardDescription = "From the darkness ahead, you hear a series of rapid, popping sounds and a flurry of bullets whistle past your ear. Before you can react, there is another burst of fire and a bullet slams into your shoulder, knocking you down.\n\nYOU lose 2HP\n\nWhen silence falls, you edge forward to find the body of a man - his fatal wounds still smouldering. A contract has been fulfilled, a bounty no doubt soon to be collected. There is no sign of the assassin, so you lead the crew on a quick search for items of value.\n\n+2 ITEM Cards" };
@@ -110,7 +116,16 @@ namespace EscapeDS
             Card b1 = new Card() { CardID = 28, TypeOfCard = CardType.Boss, CardName = "boss1" };
 
 
-            AllCards = new List<Card>() { sc1, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, b1 };
+            //AllCards = new List<Card>() { sc1, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, b1 };*/
+           
+            #endregion
+
+            var query = from card in db.Card
+                        select card;
+
+            var results = query.ToList();
+
+            AllCards = results;
 
         }
 
@@ -118,7 +133,7 @@ namespace EscapeDS
         public Card DealCard(CardType cardType)
         {
             Card cardToDeal;
-
+            ShuffleCards(); // Shuffle the deck before dealing a card
             foreach (Card card in AllCards)
             {
                 if (card.TypeOfCard == cardType)
@@ -137,7 +152,7 @@ namespace EscapeDS
 
             Random rand = new Random();
             int n = AllCards.Count;
-            while (n > 1)
+            while (n > 0)
             {
                 n--;
                 int k = rand.Next(n + 1);
@@ -145,10 +160,11 @@ namespace EscapeDS
                 AllCards[k] = AllCards[n];
                 AllCards[n] = value;
             }
+            ShuffledCards = AllCards;
             return null;
         }
 
-        
+
 
     }
 
@@ -156,22 +172,22 @@ namespace EscapeDS
 
 
 
-public class BossCard : Card //how do i add these to the database?
-{
-    public int BossID { get; set; }
-    public string BossName { get; set; }
-    public string BossImage { get; set; }
-    public int BossStrength;
-}
+    public class BossCard : Card //how do i add these to the database?
+    {
+        public int BossID { get; set; }
+        public string BossName { get; set; }
+        public string BossImage { get; set; }
+        public int BossStrength;
+    }
 
-public class StartCard : Card //how do i add these to the database?
-{
-    public int StartID { get; set; }
-    public string StartName { get; set; }
-    public string StartImage { get; set; }
-    public string StartReward { get; set; }
+    public class StartCard : Card //how do i add these to the database?
+    {
+        public int StartID { get; set; }
+        public string StartName { get; set; }
+        public string StartImage { get; set; }
+        public string StartReward { get; set; }
 
-}
+    }
 
 
 }

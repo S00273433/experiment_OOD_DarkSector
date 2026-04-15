@@ -20,6 +20,7 @@ namespace EscapeDS
     /// </summary>
     public partial class MainWindow : Window
     {
+        Deck deck = new Deck();
 
         List<Card> allCards = new List<Card>();
 
@@ -33,33 +34,7 @@ namespace EscapeDS
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
-            //create new deck
-
-            //get 14 cards from deck
-
-            //add these 14 cards to a game deck
-
-
-
-
-
-            CardData db = new CardData();
-
-            var query = from c in db.Card
-                        orderby c.CardID
-                        select c;
-
-            allCards = query.ToList();
-
-
-
-            Player player = new Player();
-            Card card1 = new Card() { CardName = "Card1", Image = "1.jpg" };
-
-             //   bool result = player.DoBattle(card1);
-    
-                // MessageBox.Show(result.ToString());
-
+           
 
         }
     }

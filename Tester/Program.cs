@@ -17,12 +17,17 @@ namespace Tester
             EventsTurns evTurns = new EventsTurns(deck, player, card);
             Combat combat = new Combat(card, player, evTurns);
 
-           
+
             
+            foreach (var c in deck.ShuffledCards)
+            {
+                Console.WriteLine($"Card Name: {c.CardName}, Card Type: {c.CardDescription}");
+            }
+                
 
 
 
-            //combat.DoCombat(player, card, "Attack");
+            combat.DoCombat(player, card, "Attack");
 
 
         }
