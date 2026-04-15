@@ -19,10 +19,10 @@ namespace Tester
 
 
             
-            foreach (var c in deck.ShuffledCards)
+           /* foreach (var c in deck.ShuffledCards)
             {
                 Console.WriteLine($"Card Name: {c.CardName}, Card Type: {c.CardDescription}");
-            }
+            }*/
                 
 
 

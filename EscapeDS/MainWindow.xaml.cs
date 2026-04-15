@@ -20,22 +20,40 @@ namespace EscapeDS
     /// </summary>
     public partial class MainWindow : Window
     {
-        Deck deck = new Deck();
+        public Deck deck = new Deck();
+        public Card card = new Card();
+        public Player player = new Player();
+        public EventsTurns evTurns;
+        public Combat combat;
 
+        public bool OtherPressed;
+        
         List<Card> allCards = new List<Card>();
+
 
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent(); 
 
             
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
            
+            evTurns = new EventsTurns(deck, player, card);
 
+            txtStory.Text = evTurns.currentCard.CardDescription;
+        }
+
+        private void btnOther_Click(object sender, RoutedEventArgs e)
+        {
+                OtherPressed = true;
+                
+                txtStory.Text = evTurns.currentCard?.CardDescription;
+                
+                
+                
         }
     }
 }

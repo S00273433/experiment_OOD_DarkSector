@@ -28,13 +28,14 @@
 
                     <Image x:Name="imgCard" Grid.Row="0" Grid.Column="1" Margin="10" Source="/CardImage/1.jpg"/>
 
-                    <TextBlock Grid.Row="1" Grid.Column="1" Margin="10" TextWrapping="WrapWithOverflow"  Text="You are a survivor in a post-apocalyptic world, struggling to survive against the odds. The world has been ravaged by a mysterious event, leaving it in ruins and overrun by dangerous creatures. You must navigate through the desolate landscape, scavenge for resources, and fight off threats to stay alive. Your ultimate goal is to find a safe haven where you can rebuild your life and find hope amidst the darkness."/>
+                <TextBlock Grid.Row="1" Grid.Column="1" Margin="10" TextWrapping="WrapWithOverflow" Name="txtStory"
+                               Text="txt"/>
 
                     <StackPanel Grid.Row="0" Grid.Column="2" Margin="10" Grid.RowSpan="2">
                         <Label Content="Action buttons" FontSize="24" HorizontalAlignment="Left"/>
                         <Button x:Name="btnCombat" Content="Combat" Margin="10"/>
                         <Button x:Name="btnDiceRoll" Content="Dice Roll" Margin="10"/>
-                        <Button x:Name="btnOther" Content="Other" Margin="10"/>
+                        <Button x:Name="btnOther" Content="Other" Margin="10" Click="btnOther_Click"/>
                     </StackPanel>
 
 
@@ -61,21 +62,7 @@
                         <TextBlock Grid.Row="2" Grid.Column="0" Margin="5" TextWrapping="WrapWithOverflow" Grid.ColumnSpan="3" Text="Flank: Attempt to outmaneuver your enemy, increasing your chances of landing a successful attack."/>
 
                     </Grid>
-                    <!--<Border BorderBrush="Black" BorderThickness="1" Grid.Column="1" HorizontalAlignment="Left" Height="320" Margin="124,10,0,0" VerticalAlignment="Top" Width="248">
-                        <Image HorizontalAlignment="Center" Height="300" VerticalAlignment="Top" Width="234" Source="/Screenshot 2026-02-25 095010.png" Margin="0,-1,0,0"/>
-                        
-                    </Border>
-                    <Border BorderBrush="Black" BorderThickness="1" Grid.Column="1" HorizontalAlignment="Left" Height="320" Margin="395,10,0,0" VerticalAlignment="Top" Width="215"/>
-                    <Label Grid.Column="1" Content="unturned&#xD;&#xA;deck" HorizontalAlignment="Left" Height="44" Margin="469,29,0,0" VerticalAlignment="Top" Width="66" RenderTransformOrigin="1.031,0.57"/>
-                    <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="106" Margin="0,45,0,0" VerticalAlignment="Top" Width="76" Grid.Column="1">
-                        <Label Content="Flank" HorizontalAlignment="Center" Height="32" Margin="0,9,0,0" VerticalAlignment="Top" Width="56"/>
-                    </Border>
-                    <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="106" Margin="0,203,0,0" VerticalAlignment="Top" Width="76" Grid.Column="1">
-                        <Label Content="Medical &#xD;&#xA;Drone" HorizontalAlignment="Center" Height="43" Margin="0,9,0,0" VerticalAlignment="Top" Width="56"/>
-                    </Border>
-                    <Border BorderBrush="Black" BorderThickness="1" Grid.Column="1" HorizontalAlignment="Left" Height="104" Margin="623,12,0,0" VerticalAlignment="Top" Width="108">
-                        <Label Content="Loot" HorizontalAlignment="Left" Height="30" Margin="9,9,0,0" VerticalAlignment="Top" Width="58"/>
-                    </Border>-->
+                   
                 </Grid>
             </TabItem>
 
@@ -87,8 +74,8 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="24" Margin="257,10,0,0" Grid.Column="1"><Run Language="en-ie" Text="Escape the dark sector"/></TextBlock>
-                    <Image x:Name="CrewPic1" HorizontalAlignment="Left" Height="197" Margin="257,42,0,0" VerticalAlignment="Top" Width="112" OpacityMask="Red" Source="/20251006_233842656_iOS.jpg" Grid.Column="1"/>
-                    <Image x:Name="CrewPic1_Copy" HorizontalAlignment="Left" Height="197" Margin="376,42,0,0" VerticalAlignment="Top" Width="112" OpacityMask="Red" Source="/20251006_233842656_iOS.jpg" Grid.Column="1"/>
+                    <Image x:Name="CrewPic1" HorizontalAlignment="Left" Height="197" Margin="257,42,0,0" VerticalAlignment="Top" Width="112" OpacityMask="Red"  Grid.Column="1"/>
+                    <Image x:Name="CrewPic1_Copy" HorizontalAlignment="Left" Height="197" Margin="376,42,0,0" VerticalAlignment="Top" Width="112" OpacityMask="Red"  Grid.Column="1"/>
                     <Label Content="Crew 1" HorizontalAlignment="Left" Height="27" Margin="285,237,0,0" VerticalAlignment="Top" Width="56" Grid.Column="1"/>
                     <Label Content="Crew 2" HorizontalAlignment="Left" Height="27" Margin="404,237,0,0" VerticalAlignment="Top" Width="56" Grid.Column="1"/>
                     <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="190" Margin="493,42,0,0" VerticalAlignment="Top" Width="194" Grid.Column="1"/>

@@ -13,7 +13,6 @@ namespace EscapeDS
         public Player player;
         public Card currentCard;
         private Combat Combat;
-
         public int ActionChoice;
 
         public enum GameState { Begin, Describe, Decide, CombatStarted, Resolve }
@@ -27,12 +26,14 @@ namespace EscapeDS
             this.player = player;
             this.currentCard = currentCard;
             CurrentGameState = GameState.Begin;
+
             PlayDeck();
             
         }
 
         public void PlayDeck()
         {
+            
             // Deal cards in sequence: 1 StartCard, 3 Act1, 3 Act2, 3 Act3, 1 Boss
             Card[] cardSequence = new Card[11];
             
@@ -56,6 +57,8 @@ namespace EscapeDS
             
             // Deal 1 Boss card
             cardSequence[10] = deck.DealCard(CardType.Boss);
+            
+            
 
             // Loop through each dealt card
             foreach (Card card in cardSequence)
@@ -66,30 +69,21 @@ namespace EscapeDS
                     currentCard.IsActive = true;
 
                     // Display the card while IsActive is true
-                    while (currentCard.IsActive)
+                    if (currentCard.IsActive)
                     {
-                        Console.Clear();
-                        Console.WriteLine($"{currentCard.CardName}");
-                        Console.WriteLine("=====================");
-                        Console.WriteLine($"{currentCard.CardDescription}");
-                        Console.WriteLine("\n=====================");
-                        Console.WriteLine("Type 'Next' to proceed to the next card:");
+                        mainWindow.txtStory.Text = currentCard.CardDescription;
+
                         
-                        string input = Console.ReadLine().ToLower();
-                        
-                        if (input == "next")
-                        {
-                            currentCard.IsActive = false;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Invalid input. Please type 'Next'.");
-                        }
                     }
+                    
+                    else if (mainWindow.OtherPressed)
+                    {
+                        currentCard.IsActive = false;
+                    }   
                 }
             }
 
-            Console.WriteLine("All cards have been dealt. Game Over.");
+            //Console.WriteLine("All cards have been dealt. Game Over.");
         }
 
         public void PathChoice()
