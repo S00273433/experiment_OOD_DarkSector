@@ -71,12 +71,12 @@ namespace EscapeDS
                     // Display the card while IsActive is true
                     if (currentCard.IsActive)
                     {
-                        mainWindow.txtStory.Text = currentCard.CardDescription;
+                     
 
                         
                     }
                     
-                    else if (mainWindow.OtherPressed)
+                //    else if (mainWindow.OtherPressed)
                     {
                         currentCard.IsActive = false;
                     }   
