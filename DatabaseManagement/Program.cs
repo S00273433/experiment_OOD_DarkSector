@@ -43,23 +43,22 @@ namespace DatabaseManagement
                 Card a13 = new Card() { CardID = 16, TypeOfCard = CardType.Act2, Strength = 5, CardReward = 2, RangeDamage = 2, MeleeDamage = 2, CardName = "LizardMen", CardDescription = "Here, two lizardmen are brutally interrogating a quivering captive. \r\n\r\nChoose one option... \r\n\r\nAttack: Give these bullies what they deserve. Begin combat... \r\n\r\nIntimidate: Try and speak their language, ordering them to set the man free by rolling WISDOM in one attempt... \r\n\r\nSuccess: They obey, and the man rewards you. Draw an ITEM card. \r\n\r\nFailure: They laugh, drawing their weapons and vanishing behind a volley of suppressive fire. YOU must roll a HIT DIE. Then, turn the next chapter card. " };
                 Card a14 = new Card() { CardID = 17, TypeOfCard = CardType.Act2, Strength = 5, CardReward = 2, MeleeDamage = 1, RangeDamage = 2, CardName = "The Assassin 2", CardDescription = "There is a blinding flash as the fabric of spacetime is torn apart before your very eyes. An assassin bursts through the unstable portal and instantly opens fire! \r\n\r\nYOU must roll a HIT DIE. Then, choose one option... \r\n\r\nEvade: You rush forward as a unit, forcing the assassin back into the portal just as it closes. All members of the crew lose 1HP. \r\n\r\nAttack: You take up defensive positions. Begin combat... \r\n\r\n " };
                 Card a15 = new Card() { CardID = 18, TypeOfCard = CardType.Act2, CardReward = 2, CardPenalty = -3, CardName = "Dissection", CardDescription = "You pass a medical bay where someone strangely familiar is being clumsily dissected. Peering in, you notice some unattended supplies... \r\n\r\nChoose one option... \r\n\r\nMove on: It's too risky. Turn the next chapter card. \r\n\r\nSteal: Nominate a member of the crew to roll two CUNNING in two attempts... \r\n\r\nSuccess: You deftly slip inside, carefully retrieving the items within reach. Draw two ITEM cards. \r\n\r\nFailure: You stumble and overturn a large vial of acid, spilling it down your legs. You lose 3up. Barely stifling your cries of agony, you withdraw just as your presence becomes noticed... " };
-                Card a16 = new Card() { CardID = 19, TypeOfCard = CardType.Act2, Strength = 6, CardReward = 3, CardName = "Nobleman", CardDescription = "" };
+                Card a16 = new Card() { CardID = 19, TypeOfCard = CardType.Act2, Strength = 6, CardReward = 3, CardName = "Nobleman", CardDescription = "You cross paths with one of the station's nobleman, finding him in a place well below his station.\n He is accompanied by his gaurds and a group of known smugglers.\nHe dashes into the shadows, leaving the gaurds and smugglers to deal with you" };
 
 
                 //Create 8 act 3 cards
-                Card a17 = new Card() { CardID = 20, TypeOfCard = CardType.Act3, CardName = "def" };
-                Card a18 = new Card() { CardID = 21, TypeOfCard = CardType.Act3, CardName = "def" };
-                Card a19 = new Card() { CardID = 22, TypeOfCard = CardType.Act3, CardName = "def" };
-                Card a20 = new Card() { CardID = 23, TypeOfCard = CardType.Act3, CardName = "def" };
-                Card a21 = new Card() { CardID = 24, TypeOfCard = CardType.Act3, CardName = "def" };
-                Card a22 = new Card() { CardID = 25, TypeOfCard = CardType.Act3, CardName = "def" };
-                Card a23 = new Card() { CardID = 26, TypeOfCard = CardType.Act3, CardName = "def" };
-                Card a24 = new Card() { CardID = 27, TypeOfCard = CardType.Act3, CardName = "def" };
-                Card a25 = new Card() { CardID = 28, TypeOfCard = CardType.Act3, CardName = "xyz" };
+                Card a17 = new Card() { CardID = 20, TypeOfCard = CardType.Act3, Strength = 5, CardReward = 1, RangeDamage = 2, CardName = "Gang", CardDescription = "In the dark recesses of this disused hangar, a shady deal is going down between rival gangs. Catching sight of you, they immediately draw their weapons and block your way, calling out brutal threats... " };
+                Card a18 = new Card() { CardID = 21, TypeOfCard = CardType.Act3, Strength = 5, CardReward = 1, RangeDamage = 2, CardName = "Bounty Hunter", CardDescription = "There is a price on your head and one of the sector's most ruthless bounty hunters has tracked you across the galaxy, highly motivated to eliminate you. \r\n\r\nYou've been ambushed!" };
+                Card a19 = new Card() { CardID = 22, TypeOfCard = CardType.Act3, Strength = 5, CardReward = 1, RangeDamage = 2, CardName = "Experiemental" , CardDescription = "The doors of this room lock behind you and an alien terminal slowly rises from its centre. It must be operated carefully...\nYou confidently strike a key, inadvertently releasing a brutish mutant warrior from its stasis tank. Begin combat... \r\n\r\n " };
+                Card a20 = new Card() { CardID = 23, TypeOfCard = CardType.Act3, Strength = 5, CardReward = 2 , RangeDamage = 2, CardName = "Cargo Bot", CardDescription = "In this loading bay, a cargo bot has gone haywire and slain its keepers. It now wields their weaponry, and you appear to be next in line to suffer its wrath... \r\n\r\nYou are greeted with a flurry of laser fire." };
+                Card a21 = new Card() { CardID = 24, TypeOfCard = CardType.Act3, Strength = 5, CardReward = 2 , RangeDamage = 2, CardName = "Mecha", CardDescription = "A dusty mech stands sentinel in the passage ahead. As you edge forward, its solitary red eye begins to flicker, and its canons suddenly swivel to aim directly at you! " };
+               
 
                 //Create 3 boss cards
-                Card b1 = new Card() { CardID = 29, TypeOfCard = CardType.Boss, CardName = "boss1" };
+                Card b1 = new Card() { CardID = 29, TypeOfCard = CardType.Boss, Strength = 6, RangeDamage = 3, CardName = "SGT. Steel", CardDescription = "'Let's see what you've got..' Covered from the neck down in military Dreadnought armour, he charges you." };
+                Card b2 = new Card() { CardID = 30, TypeOfCard = CardType.Boss, Strength = 5, RangeDamage = 4, CardName = "The Entity", CardDescription = ".................." };
 
+                
                 Console.WriteLine("Adding new cards to database...");
                 db.Card.AddOrUpdate(sc1);
                 db.Card.AddOrUpdate(sc2);
@@ -85,12 +84,26 @@ namespace DatabaseManagement
                 db.Card.AddOrUpdate(a19);
                 db.Card.AddOrUpdate(a20);
                 db.Card.AddOrUpdate(a21);
-                db.Card.AddOrUpdate(a22);
-                db.Card.AddOrUpdate(a23);
-                db.Card.AddOrUpdate(a24);
-                db.Card.AddOrUpdate(a25);
+                // Remove unwanted Act3 cards by ID (fetch from DB so EF tracks them)
+                int[] idsToRemove = { 25, 26, 27, 28 };
+                foreach (var CardID in idsToRemove)
+                {
+                    var existing = db.Card.Find(CardID);
+                    if (existing != null)
+                    {
+                        db.Card.Remove(existing);
+                        Console.WriteLine($"Removed CardID {CardID} from DB");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"CardID {CardID} not found in DB");
+                    }
+                }
+
+
                 db.Card.AddOrUpdate(b1);
-                
+                db.Card.AddOrUpdate(b2);
+
                 db.SaveChanges();
                 Console.WriteLine("Database updated successfully!");
                 
