@@ -84,21 +84,7 @@ namespace DatabaseManagement
                 db.Card.AddOrUpdate(a19);
                 db.Card.AddOrUpdate(a20);
                 db.Card.AddOrUpdate(a21);
-                // Remove unwanted Act3 cards by ID (fetch from DB so EF tracks them)
-                int[] idsToRemove = { 25, 26, 27, 28 };
-                foreach (var CardID in idsToRemove)
-                {
-                    var existing = db.Card.Find(CardID);
-                    if (existing != null)
-                    {
-                        db.Card.Remove(existing);
-                        Console.WriteLine($"Removed CardID {CardID} from DB");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"CardID {CardID} not found in DB");
-                    }
-                }
+                
 
 
                 db.Card.AddOrUpdate(b1);
