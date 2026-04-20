@@ -31,7 +31,7 @@
                     <TextBlock Grid.Row="1" Grid.Column="0" Margin="10" TextWrapping="WrapWithOverflow" Name="txtEnemyHealth" Text="txt" Height="101" />
                 
 
-                <Image x:Name="imgCard" Grid.Row="0" Grid.Column="1" Margin="10" Source="/CardImage/1.jpg"/>
+                <Image x:Name="imgCard" Grid.Row="0" Grid.Column="1" Margin="10" Source="/CardImage/start.jpg"/>
 
                 <TextBlock Grid.Row="1" Grid.Column="1" Margin="10" TextWrapping="WrapWithOverflow" Name="txtStory"
                                Text="txt"/>

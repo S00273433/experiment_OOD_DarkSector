@@ -119,6 +119,14 @@
     <Compile Include="Migrations\202604171238414_April17-2.Designer.cs">
       <DependentUpon>202604171238414_April17-2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202604202308183_Final.cs" />
+    <Compile Include="Migrations\202604202308183_Final.Designer.cs">
+      <DependentUpon>202604202308183_Final.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202604202311104_Final2.cs" />
+    <Compile Include="Migrations\202604202311104_Final2.Designer.cs">
+      <DependentUpon>202604202311104_Final2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -154,6 +162,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202604171238414_April17-2.resx">
       <DependentUpon>202604171238414_April17-2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202604202308183_Final.resx">
+      <DependentUpon>202604202308183_Final.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202604202311104_Final2.resx">
+      <DependentUpon>202604202311104_Final2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

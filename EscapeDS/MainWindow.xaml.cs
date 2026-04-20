@@ -76,7 +76,7 @@ namespace EscapeDS
         private void UpdateCardDisplay()
         {
             txtStory.Text = evTurns.currentCard?.CardDescription;
-            imgCard = evTurns.currentCard?.Image;
+            //imgCard.Source = evTurns.currentCard.Image;
             txtEnemyHealth.Text = evTurns.currentCard?.Strength.ToString();
         }
 
