@@ -7,86 +7,86 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
         Loaded="Window_Loaded">
-        
+
     <TabControl>
-            <TabItem Header="Story">
-                <Grid Background="LightBlue">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="50*"/>
-                        <RowDefinition Height="50*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="33*"/>
-                        <ColumnDefinition Width="33*"/>
-                        <ColumnDefinition Width="33*"/>
-                    </Grid.ColumnDefinitions>
+        <TabItem Header="Story">
+            <Grid Background="LightBlue">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50*"/>
+                    <RowDefinition Height="50*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="33*"/>
+                    <ColumnDefinition Width="33*"/>
+                    <ColumnDefinition Width="33*"/>
+                </Grid.ColumnDefinitions>
 
-                    <Label Content=" Player Health" FontSize="24" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0"/>
+                <Label Content=" Player Health" FontSize="24" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0"/>
 
-                    <Label Content=" Enemy Health" FontSize="24" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0"/>
+                <Label Content=" Enemy Health" FontSize="24" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0"/>
 
 
-                    <Image x:Name="imgCard" Grid.Row="0" Grid.Column="1" Margin="10" Source="/CardImage/1.jpg"/>
+                <Image x:Name="imgCard" Grid.Row="0" Grid.Column="1" Margin="10" Source="/CardImage/1.jpg"/>
 
                 <TextBlock Grid.Row="1" Grid.Column="1" Margin="10" TextWrapping="WrapWithOverflow" Name="txtStory"
                                Text="txt"/>
 
-                    <StackPanel Grid.Row="0" Grid.Column="2" Margin="10" Grid.RowSpan="2">
-                        <Label Content="Action buttons" FontSize="24" HorizontalAlignment="Left"/>
-                        <Button x:Name="btnCombat" Content="Combat" Margin="10"/>
-                        <Button x:Name="btnDiceRoll" Content="Dice Roll" Margin="10"/>
-                        <Button x:Name="btnOther" Content="Other" Margin="10" Click="btnOther_Click"/>
-                    </StackPanel>
+                <StackPanel Grid.Row="0" Grid.Column="2" Margin="10" Grid.RowSpan="2">
+                    <Label Content="Action buttons" FontSize="24" HorizontalAlignment="Left"/>
+                    <Button x:Name="btnCombat" Content="Combat" Margin="10"/>
+                    <Button x:Name="btnDiceRoll" Content="Dice Roll" Margin="10"/>
+                    <Button x:Name="btnOther" Content="Other" Margin="10" Click="btnOther_Click"/>
+                </StackPanel>
 
 
-                    <Grid Grid.Row="1" Grid.Column="2" Margin="10">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-
-                        <Button x:Name="btnFlank" Content="Combat" Grid.Row="0" Grid.Column="0" Margin="5"/>
-                        <Button x:Name="btnHeal" Content="Heal" Grid.Row="0" Grid.Column="1" Margin="5"/>
-                        <Button x:Name="btnLoot" Content="Reload" Grid.Row="0" Grid.Column="2" Margin="5"/>
-
-                        <Button x:Name="btnCard1" Content="Card 1" Grid.Row="1" Grid.Column="0" Margin="5" Visibility="Hidden"/>
-                        <Button x:Name="btnCard2" Content="Card 2" Grid.Row="1" Grid.Column="1" Margin="5" Visibility="Hidden"/>
-                        <Button x:Name="btnCard3" Content="Card 3" Grid.Row="1" Grid.Column="2" Margin="5" Visibility="Hidden"/>
-
-                        <TextBlock Grid.Row="2" Grid.Column="0" Margin="5" TextWrapping="WrapWithOverflow" Grid.ColumnSpan="3" Text="Flank: Attempt to outmaneuver your enemy, increasing your chances of landing a successful attack."/>
-
-                    </Grid>
-                   
-                </Grid>
-            </TabItem>
-
-            <TabItem Header="Crew">
-                <Grid Background="LightBlue">
+                <Grid Grid.Row="1" Grid.Column="2" Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="21*"/>
-                        <ColumnDefinition Width="773*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="24" Margin="257,10,0,0" Grid.Column="1"><Run Language="en-ie" Text="Escape the dark sector"/></TextBlock>
-                    <Image x:Name="CrewPic1" HorizontalAlignment="Left" Height="197" Margin="257,42,0,0" VerticalAlignment="Top" Width="112" OpacityMask="Red"  Grid.Column="1"/>
-                    <Image x:Name="CrewPic1_Copy" HorizontalAlignment="Left" Height="197" Margin="376,42,0,0" VerticalAlignment="Top" Width="112" OpacityMask="Red"  Grid.Column="1"/>
-                    <Label Content="Crew 1" HorizontalAlignment="Left" Height="27" Margin="285,237,0,0" VerticalAlignment="Top" Width="56" Grid.Column="1"/>
-                    <Label Content="Crew 2" HorizontalAlignment="Left" Height="27" Margin="404,237,0,0" VerticalAlignment="Top" Width="56" Grid.Column="1"/>
-                    <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="190" Margin="493,42,0,0" VerticalAlignment="Top" Width="194" Grid.Column="1"/>
-                    <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="190" Margin="58,42,0,0" VerticalAlignment="Top" Width="194" Grid.Column="1"/>
-                    <Label Content="Inventory" HorizontalAlignment="Left" Height="27" Margin="541,237,0,0" VerticalAlignment="Top" Width="88" Grid.Column="1"/>
-                    <Label Content="Inventory" HorizontalAlignment="Left" Height="27" Margin="111,237,0,0" VerticalAlignment="Top" Width="88" Grid.Column="1"/>
-                    <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="73" Margin="58,269,0,0" VerticalAlignment="Top" Width="193" Grid.Column="1"/>
-                    <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="67" Margin="495,275,0,0" VerticalAlignment="Top" Width="192" Grid.Column="1"/>
+                    <Button x:Name="btnFlank" Content="Combat" Grid.Row="0" Grid.Column="0" Margin="5"/>
+                    <Button x:Name="btnHeal" Content="Heal" Grid.Row="0" Grid.Column="1" Margin="5"/>
+                    <Button x:Name="btnLoot" Content="Reload" Grid.Row="0" Grid.Column="2" Margin="5"/>
+
+                    <Button x:Name="btnCard1" Content="Card 1" Grid.Row="1" Grid.Column="0" Margin="5" Visibility="Hidden"/>
+                    <Button x:Name="btnCard2" Content="Card 2" Grid.Row="1" Grid.Column="1" Margin="5" Visibility="Hidden"/>
+                    <Button x:Name="btnCard3" Content="Card 3" Grid.Row="1" Grid.Column="2" Margin="5" Visibility="Hidden"/>
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="5" TextWrapping="WrapWithOverflow" Grid.ColumnSpan="3" Text="Flank: Attempt to outmaneuver your enemy, increasing your chances of landing a successful attack."/>
 
                 </Grid>
-            </TabItem>
-        </TabControl>
+
+            </Grid>
+        </TabItem>
+
+        <TabItem Header="Crew">
+            <Grid Background="LightBlue">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="21*"/>
+                    <ColumnDefinition Width="773*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="24" Margin="257,10,0,0" Grid.Column="1"><Run Language="en-ie" Text="Escape the dark sector"/></TextBlock>
+                <Image x:Name="CrewPic1" HorizontalAlignment="Left" Height="197" Margin="257,42,0,0" VerticalAlignment="Top" Width="112" OpacityMask="Red"  Grid.Column="1"/>
+                <Image x:Name="CrewPic1_Copy" HorizontalAlignment="Left" Height="197" Margin="376,42,0,0" VerticalAlignment="Top" Width="112" OpacityMask="Red"  Grid.Column="1"/>
+                <Label Content="Crew 1" HorizontalAlignment="Left" Height="27" Margin="285,237,0,0" VerticalAlignment="Top" Width="56" Grid.Column="1"/>
+                <Label Content="Crew 2" HorizontalAlignment="Left" Height="27" Margin="404,237,0,0" VerticalAlignment="Top" Width="56" Grid.Column="1"/>
+                <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="190" Margin="493,42,0,0" VerticalAlignment="Top" Width="194" Grid.Column="1"/>
+                <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="190" Margin="58,42,0,0" VerticalAlignment="Top" Width="194" Grid.Column="1"/>
+                <Label Content="Inventory" HorizontalAlignment="Left" Height="27" Margin="541,237,0,0" VerticalAlignment="Top" Width="88" Grid.Column="1"/>
+                <Label Content="Inventory" HorizontalAlignment="Left" Height="27" Margin="111,237,0,0" VerticalAlignment="Top" Width="88" Grid.Column="1"/>
+                <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="73" Margin="58,269,0,0" VerticalAlignment="Top" Width="193" Grid.Column="1"/>
+                <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="67" Margin="495,275,0,0" VerticalAlignment="Top" Width="192" Grid.Column="1"/>
+
+            </Grid>
+        </TabItem>
+    </TabControl>
 
 </Window>

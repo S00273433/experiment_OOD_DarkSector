@@ -15,9 +15,13 @@ namespace EscapeDS
         private Combat Combat;
         public int ActionChoice;
 
+        public event EventHandler CurrentCardChanged;
+
         public enum GameState { Begin, Describe, Decide, CombatStarted, Resolve }
         GameState CurrentGameState;
 
+        private Card[] cardSequence;
+        private int currentCardIndex = -1;
 
         public EventsTurns(Deck deck, Player player, Card currentCard)
         {
@@ -27,79 +31,66 @@ namespace EscapeDS
             this.currentCard = currentCard;
             CurrentGameState = GameState.Begin;
 
-            PlayDeck();
-            
+            InitializeDeck();
         }
 
-        public void PlayDeck()
+        public void InitializeDeck()
         {
-            
             // Deal cards in sequence: 1 StartCard, 3 Act1, 3 Act2, 3 Act3, 1 Boss
-            Card[] cardSequence = new Card[11];
-            
+            cardSequence = new Card[11];
+
             // Deal 1 StartCard
             cardSequence[0] = deck.DealCard(CardType.StartCard);
-            
+
             // Deal 3 Act1 cards
             cardSequence[1] = deck.DealCard(CardType.Act1);
             cardSequence[2] = deck.DealCard(CardType.Act1);
             cardSequence[3] = deck.DealCard(CardType.Act1);
-            
+
             // Deal 3 Act2 cards
             cardSequence[4] = deck.DealCard(CardType.Act2);
             cardSequence[5] = deck.DealCard(CardType.Act2);
             cardSequence[6] = deck.DealCard(CardType.Act2);
-            
+
             // Deal 3 Act3 cards
             cardSequence[7] = deck.DealCard(CardType.Act3);
             cardSequence[8] = deck.DealCard(CardType.Act3);
             cardSequence[9] = deck.DealCard(CardType.Act3);
-            
+
             // Deal 1 Boss card
             cardSequence[10] = deck.DealCard(CardType.Boss);
-            
-            
 
-            // Loop through each dealt card
-            foreach (Card card in cardSequence)
+            // Move to first card
+            NextCard();
+        }
+
+        public void NextCard()
+        {
+            currentCardIndex++;
+            if (currentCardIndex < cardSequence.Length && cardSequence[currentCardIndex] != null)
             {
-                if (card != null)
-                {
-                    currentCard = card;
-                    currentCard.IsActive = true;
-
-                    // Display the card while IsActive is true
-                    if (currentCard.IsActive)
-                    {
-                     
-
-                        
-                    }
-                    
-                //    else if (mainWindow.OtherPressed)
-                    {
-                        currentCard.IsActive = false;
-                    }   
-                }
+                currentCard = cardSequence[currentCardIndex];
+                currentCard.IsActive = true;
+                CurrentCardChanged?.Invoke(this, EventArgs.Empty);
             }
-
-            //Console.WriteLine("All cards have been dealt. Game Over.");
+            else
+            {
+                currentCard = null;
+                CurrentGameState = GameState.Begin;
+            }
         }
 
         public void PathChoice()
         {
             string choice;
             Console.WriteLine("Choose a path");
-
         }
 
         public void LeaveCombat()
         {
-            Console.WriteLine($"{ currentCard.CardName} defeated");
+            Console.WriteLine($"{currentCard.CardName} defeated");
             CurrentGameState = GameState.Begin;
+            NextCard();
         }
-
-        
-
     }
 }

@@ -18,9 +18,13 @@ namespace DatabaseManagement
             CardData db = new CardData();
             using (db)
             {
+                // Remove cards with IDs 25-28
+                Console.WriteLine("Removing cards with IDs 25-28...");
+                RemoveAndRenumberCards(db);
+
                 //1st april note -> update descirptions, cut down extra cards, add migration and update
-               
-                
+
+
                 Card sc1 = new Card() { CardID = 1, TypeOfCard = CardType.StartCard, CardName = "Detention", CardDescription = "You awake in a small, dark cell. The inobservant gaurds missed your suit's hidden compartment, where you store a small laser cutter. You melt through the iron bars of the cell and escape, to find the jail otherwise empty. A laspistol lays on the gaurd's desk." }; // start weapon + 1 item card
                 Card sc2 = new Card() { CardID = 2, TypeOfCard = CardType.StartCard, CardName = "Security", CardDescription = "You've been seized by gaurds on suspected sabotage charges. They brought you to the detention level, and became distracted when a fight breaks out nearby, which boils over into a class riot. You run for your life, and find a laspistol during the fray." }; //start weapon -  1 act 3 card
                 Card sc3 = new Card() { CardID = 3, TypeOfCard = CardType.StartCard, CardName = "The Brig", CardDescription = "You enter the station a slave, property of a depraved slaver. A moment of quick thinking and impactful violence finds you freed, but confused. You begin to search for a way off the ship, slaver's own gun in hand." }; //start weapon + 1 act 3 card
@@ -49,16 +53,16 @@ namespace DatabaseManagement
                 //Create 8 act 3 cards
                 Card a17 = new Card() { CardID = 20, TypeOfCard = CardType.Act3, Strength = 5, CardReward = 1, RangeDamage = 2, CardName = "Gang", CardDescription = "In the dark recesses of this disused hangar, a shady deal is going down between rival gangs. Catching sight of you, they immediately draw their weapons and block your way, calling out brutal threats... " };
                 Card a18 = new Card() { CardID = 21, TypeOfCard = CardType.Act3, Strength = 5, CardReward = 1, RangeDamage = 2, CardName = "Bounty Hunter", CardDescription = "There is a price on your head and one of the sector's most ruthless bounty hunters has tracked you across the galaxy, highly motivated to eliminate you. \r\n\r\nYou've been ambushed!" };
-                Card a19 = new Card() { CardID = 22, TypeOfCard = CardType.Act3, Strength = 5, CardReward = 1, RangeDamage = 2, CardName = "Experiemental" , CardDescription = "The doors of this room lock behind you and an alien terminal slowly rises from its centre. It must be operated carefully...\nYou confidently strike a key, inadvertently releasing a brutish mutant warrior from its stasis tank. Begin combat... \r\n\r\n " };
-                Card a20 = new Card() { CardID = 23, TypeOfCard = CardType.Act3, Strength = 5, CardReward = 2 , RangeDamage = 2, CardName = "Cargo Bot", CardDescription = "In this loading bay, a cargo bot has gone haywire and slain its keepers. It now wields their weaponry, and you appear to be next in line to suffer its wrath... \r\n\r\nYou are greeted with a flurry of laser fire." };
-                Card a21 = new Card() { CardID = 24, TypeOfCard = CardType.Act3, Strength = 5, CardReward = 2 , RangeDamage = 2, CardName = "Mecha", CardDescription = "A dusty mech stands sentinel in the passage ahead. As you edge forward, its solitary red eye begins to flicker, and its canons suddenly swivel to aim directly at you! " };
-               
+                Card a19 = new Card() { CardID = 22, TypeOfCard = CardType.Act3, Strength = 5, CardReward = 1, RangeDamage = 2, CardName = "Experiemental", CardDescription = "The doors of this room lock behind you and an alien terminal slowly rises from its centre. It must be operated carefully...\nYou confidently strike a key, inadvertently releasing a brutish mutant warrior from its stasis tank. Begin combat... \r\n\r\n " };
+                Card a20 = new Card() { CardID = 23, TypeOfCard = CardType.Act3, Strength = 5, CardReward = 2, RangeDamage = 2, CardName = "Cargo Bot", CardDescription = "In this loading bay, a cargo bot has gone haywire and slain its keepers. It now wields their weaponry, and you appear to be next in line to suffer its wrath... \r\n\r\nYou are greeted with a flurry of laser fire." };
+                Card a21 = new Card() { CardID = 24, TypeOfCard = CardType.Act3, Strength = 5, CardReward = 2, RangeDamage = 2, CardName = "Mecha", CardDescription = "A dusty mech stands sentinel in the passage ahead. As you edge forward, its solitary red eye begins to flicker, and its canons suddenly swivel to aim directly at you! " };
+
 
                 //Create 3 boss cards
-                Card b1 = new Card() { CardID = 29, TypeOfCard = CardType.Boss, Strength = 6, RangeDamage = 3, CardName = "SGT. Steel", CardDescription = "'Let's see what you've got..' Covered from the neck down in military Dreadnought armour, he charges you." };
-                Card b2 = new Card() { CardID = 30, TypeOfCard = CardType.Boss, Strength = 5, RangeDamage = 4, CardName = "The Entity", CardDescription = ".................." };
+                Card b1 = new Card() { CardID = 25, TypeOfCard = CardType.Boss, Strength = 6, RangeDamage = 3, CardName = "SGT. Steel", CardDescription = "'Let's see what you've got..' Covered from the neck down in military Dreadnought armour, he charges you." };
+                Card b2 = new Card() { CardID = 26, TypeOfCard = CardType.Boss, Strength = 5, RangeDamage = 4, CardName = "The Entity", CardDescription = ".................." };
 
-                
+
                 Console.WriteLine("Adding new cards to database...");
                 db.Card.AddOrUpdate(sc1);
                 db.Card.AddOrUpdate(sc2);
@@ -71,10 +75,10 @@ namespace DatabaseManagement
                 db.Card.AddOrUpdate(a6);
                 db.Card.AddOrUpdate(a7);
                 db.Card.AddOrUpdate(a8);
-                db.Card.AddOrUpdate(a9);    
+                db.Card.AddOrUpdate(a9);
                 db.Card.AddOrUpdate(a10);
                 db.Card.AddOrUpdate(a11);
-                db.Card.AddOrUpdate(a12);       
+                db.Card.AddOrUpdate(a12);
                 db.Card.AddOrUpdate(a13);
                 db.Card.AddOrUpdate(a14);
                 db.Card.AddOrUpdate(a15);
@@ -84,16 +88,36 @@ namespace DatabaseManagement
                 db.Card.AddOrUpdate(a19);
                 db.Card.AddOrUpdate(a20);
                 db.Card.AddOrUpdate(a21);
-                
 
 
                 db.Card.AddOrUpdate(b1);
                 db.Card.AddOrUpdate(b2);
 
+
+
+
                 db.SaveChanges();
                 Console.WriteLine("Database updated successfully!");
-                
+
             }
+        }
+
+        static void RemoveAndRenumberCards(CardData db)
+        {
+            // Get all cards with IDs 25-28 and remove them
+            var cardsToRemove = db.Card.Where(c => c.CardID >= 25 && c.CardID <= 28).ToList();
+
+            if (cardsToRemove.Count > 0)
+            {
+                foreach (var card in cardsToRemove)
+                {
+                    db.Card.Remove(card);
+                }
+                db.SaveChanges();
+                Console.WriteLine($"Removed {cardsToRemove.Count} cards with IDs 25-28");
+            }
+ 
         }
     }
 }
+
