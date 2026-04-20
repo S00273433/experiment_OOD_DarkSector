@@ -191,10 +191,19 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="CardImage\Screenshot 2026-02-25 095010.png" />
+    <Resource Include="CardImage\bounty.jpg" />
+    <Resource Include="CardImage\cargo.jpg" />
+    <Resource Include="CardImage\engineer.jpg" />
+    <Resource Include="CardImage\gang.jpg" />
+    <Resource Include="CardImage\gaurd1.jpg" />
+    <Resource Include="CardImage\gaurd2.jpg" />
+    <Resource Include="CardImage\mech.jpg" />
+    <Resource Include="CardImage\start.jpg" />
+    <Resource Include="CardImage\Steel.jpg" />
+    <Resource Include="CardImage\trav.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="CardImage\1.jpg" />
+    <Resource Include="CardImage\gaurd3.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

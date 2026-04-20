@@ -39,7 +39,6 @@
                 <StackPanel Grid.Row="0" Grid.Column="2" Margin="10" Grid.RowSpan="2">
                     <Label Content="Action buttons" FontSize="24" HorizontalAlignment="Center"/>
                     <Button x:Name="btnCombat" Content="Combat" Margin="10" Click="btnCombat_Click"/>
-                    <Button x:Name="btnDiceRoll" Content="Dice Roll" Margin="10"/>
                     <Button x:Name="btnOther" Content="Next Card" Margin="10" Click="btnOther_Click"/>
                 </StackPanel>
 
@@ -55,17 +54,15 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
+                    
+                    <ScrollViewer x:Name="scrollCombatInfo" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="5" Background="White">
+                        <TextBlock x:Name="txtCombatInfo" TextWrapping="WrapWithOverflow" Foreground="Black"/>
+                    </ScrollViewer>
 
-                    <Button x:Name="btnFlank" Content="Flank" Grid.Row="0" Grid.Column="0" Margin="5"/>
-                    <Button x:Name="btnHeal" Content="Heal" Grid.Row="0" Grid.Column="1" Margin="5"/>
-                    <Button x:Name="btnLoot" Content="Reload" Grid.Row="0" Grid.Column="2" Margin="5"/>
-
-                    <Button x:Name="btnCard1" Content="Laspistol" Grid.Row="1" Grid.Column="0" Margin="5" Visibility="Visible"/>
-                    <Button x:Name="btnCard2" Content="Battle Rifle" Grid.Row="1" Grid.Column="1" Margin="5" Visibility="Visible"/>
-                    <Button x:Name="btnCard3" Content="Reload" Grid.Row="1" Grid.Column="2" Margin="5" Visibility="Visible"/>
-
-                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="5" TextWrapping="WrapWithOverflow" Grid.ColumnSpan="3" Text="Flank: Attempt to outmaneuver your enemy, increasing your chances of landing a successful attack."/>
-
+                    <Button x:Name="btnHeal" Content="Heal" Grid.Row="1" Grid.Column="0" Margin="5" Click="btnHeal_Click"/>
+                    <Button x:Name="btnPistol" Content="Laspistol" Grid.Row="2" Grid.Column="0" Margin="5" Visibility="Hidden" Click="btnPistol_Click"/>
+                    <Button x:Name="btnRifle" Content="Battle Rifle" Grid.Row="2" Grid.Column="1" Margin="5" Visibility="Hidden" Click="btnRifle_Click"/>
+                    <Button x:Name="btnReload" Content="Reload All" Grid.Row="2" Grid.Column="2" Margin="5" Visibility="Hidden" Click="btnReload_Click"/>
                 </Grid>
 
             </Grid>

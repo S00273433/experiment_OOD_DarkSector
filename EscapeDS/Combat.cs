@@ -2,41 +2,50 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 
 namespace EscapeDS
 {
-    public class Combat 
+    public class Combat
+
+
+        //this class became such a headache, I had to refactor it about 4 times in the last few days of the project. it runs super slowly unfortunately
     {
-        public enum CombatState { ChooseAction, ReturnFire, ResolvingCombat, CombatEnded } //different stages for each turn
-        CombatState currentState = CombatState.ChooseAction;
-        //class that runs the combat encounters in the game. pulls stats from whatever card is currently active in the databse. 
-
-        //needs turns
-        //1. select action - shoot, reload, heal drone, flank
-        //2. resolve chosen action. 
-        //3. shoot - if shoot, roll dice and apply result - hits, jams, and misses. Then, roll enemy Hit Die, resolve result. Damage on hits is stored in Cards database
-        //4. Compare rolled hits with enemy Strength, which is stored in Cards database. minus-- strength with every hit, when strength is 0, enemy killed, receive rewards.
-
-        //combat basically fully implemented 01/04/2026 in Tester. needs to link to XAML and such, not started yet...
+        public enum CombatState { ChooseAction, ReturnFire, ResolvingCombat, CombatEnded }
+        private CombatState currentState = CombatState.ChooseAction;
 
         private Card card;
         private Player player;
-        private Inventory Inventory;
         private EventsTurns EvTurns;
 
-
-
-        int Strength;
-        int RangedDamage;
-        int Health;
-        int Reward;
+        private ManualResetEvent weaponChoiceEvent = new ManualResetEvent(false); //this was suggested by an AI and on stackoverflow, i've never heard of it before this, but research tells me its often used in games and complex recursives like this. Not sure if bad prtactice or not
 
         public Random AttackDie = new Random();
         public Random HitDie = new Random();
         public int CurrentCard { get; set; }
-        
+
+        public string ActionChoice;
+        public string WeaponChoice;
+        public int W1AttackDamage = 1;
+        public int W1Ammo = 1;
+        public bool W1IsJammed = false;
+
+        public int W2AttackDamage = 2;
+        public int W2Ammo = 2;
+        public bool W2IsJammed = false;
+
+        public bool IsHealUsed = false;
+
+        // Event for combat log updates
+        public event EventHandler<CombatLogEventArgs> CombatLogUpdated; //event handler to update combat info scrollviewer
+
+        public class CombatLogEventArgs : EventArgs
+        {
+            public string Message { get; set; }
+        }
+
         public Combat(Card card, Player player, EventsTurns EvTurns)
         {
             this.player = player;
@@ -44,392 +53,284 @@ namespace EscapeDS
             this.EvTurns = EvTurns;
             int cardID = card.CardID;
             CurrentCard = cardID;
-            Strength = card.Strength;
-            Health = player.Health;
-            Reward = card.CardReward;
-
-
-            //Compare the card's strentgh against the payer's dice roll every turn.
-            //when strength is reduced to 0, the player wins and gets the reward.
-
-            //Then, roll car's hit dice. if hit, reduce player health. 0 = game over.
         }
-        
 
-        public string ActionChoice;
-        public string WeaponChoice;
-        public int W1AttackDamage = 1;
-        public int W1Ammo = 1;
-        public bool W1IsJammed = false;
-        public bool W1IsEmpty = false;
-
-        public int W2AttackDamage = 2;
-        public int W2Ammo = 2;
-        public bool W2IsJammed = false;
-        public bool W2IsEmpty = false;
-
-        public bool IsHealUsed = false; //heal drone can only be used once per combat, needs to reset on new combat.
-
-        public void DoCombat(Player player, Card card, string ActionChoice)
+        public void StartCombat(Card newCard) // every time this is called all bools, states and weapon stats are reset
         {
-
-            
+            this.card = newCard;
             currentState = CombatState.ChooseAction;
-            while (currentState == CombatState.ChooseAction)
+            IsHealUsed = false;
+            W1Ammo = 1;
+            W1IsJammed = false;
+            W2Ammo = 2;
+            W2IsJammed = false;
+
+            LogCombat($"--- Combat Started: {card.CardName} ---");
+            LogCombat($"Enemy Strength: {card.Strength} | Enemy Range Damage: {card.RangeDamage}");
+            LogCombat("Choose an action: Attack (1), Heal (2), or Reload (3)");
+        }
+
+        public void ProcessActionChoice(string action) //handles 
+        {
+            ActionChoice = action;
+            ProcessTurn();
+        }
+
+        public void ProcessWeaponChoice(string weaponChoice) //refactor method to avoid console.wtritelines this was built on in testing stage
+        {
+            WeaponChoice = weaponChoice;
+            weaponChoiceEvent.Set();
+        }
+
+        private void ProcessTurn() //refactor method to avoid console.wtritelines this was built on in testing stage
+        {
+            if (currentState != CombatState.ChooseAction)
             {
-                
-                Console.WriteLine("\nChoose action: \n1) Attack \n2) Heal\n 3)Reload");
-                ActionChoice = Console.ReadLine().ToLower();
-
-                switch (ActionChoice)
-                {
-                    case "1": //choose to attack, select weapon, roll attack die, resolve result, then roll hit die and resolve result.
-                        {
-                            //attack case
-                            int damage;
-                            Console.WriteLine($"enemy has {card.Strength} health");
-                            currentState = CombatState.ResolvingCombat;
-                            Console.WriteLine("Attack! \nSelect which weapon slot to use. \n1) \n2)");
-                            WeaponChoice = Console.ReadLine().ToLower();
-
-                            switch (WeaponChoice)
-                            {
-                                
-                                case "1":
-                                    {
-                                        if (W1Ammo > 0)
-                                        {
-                                            switch (TryHitTarget())
-                                            {
-                                                case 1:
-                                                    {
-                                                        damage = 0;
-                                                        Console.WriteLine($"enemy takes {damage}");
-                                                        ResolveHitDie(player, card);
-                                                        Console.WriteLine($" enemy health now {card.Strength}");
-                                                        Console.WriteLine($" player health now {player.Health}");
-                                                        W1Ammo--;
-                                                        currentState = CombatState.ChooseAction;
-                                                        break;
-                                                    }
-                                                case 2:
-                                                    {
-                                                        damage = 0;
-                                                        W1IsJammed = true;
-                                                        Console.WriteLine($"enemy takes {damage}");
-                                                        ResolveHitDie(player, card);
-                                                        Console.WriteLine($" enemy health now {card.Strength}");
-                                                        Console.WriteLine($" player health now {player.Health}");
-                                                        currentState = CombatState.ChooseAction;
-                                                        break;
-                                                    }
-                                                case 3:
-                                                    {
-                                                        damage = W1AttackDamage;
-                                                        card.TakeDamage(damage);
-                                                        Console.WriteLine($"enemy takes {damage}");
-                                                        ResolveHitDie(player, card);
-                                                        Console.WriteLine($" enemy health now {card.Strength}");
-                                                        Console.WriteLine($" player health now {player.Health}");
-                                                        W1Ammo--;
-                                                        currentState = CombatState.ChooseAction;
-                                                        break;
-                                                    }
-                                                case 4:
-                                                    {
-                                                        damage = W1AttackDamage;
-                                                        card.TakeDamage(damage);
-                                                        Console.WriteLine($"enemy takes {damage}");
-                                                        ResolveHitDie(player, card);
-                                                        Console.WriteLine($" enemy health now {card.Strength}");
-                                                        Console.WriteLine($" player health now {player.Health}");
-                                                        W1Ammo--;
-                                                        currentState = CombatState.ChooseAction;
-                                                        break;
-                                                    }
-                                                case 5:
-                                                    {
-                                                        damage = W1AttackDamage;
-                                                        card.TakeDamage(damage);
-                                                        Console.WriteLine($"enemy takes {damage}");
-                                                        ResolveHitDie(player, card);
-                                                        currentState = CombatState.ChooseAction;
-                                                        Console.WriteLine($" enemy health now {card.Strength}");
-                                                        Console.WriteLine($" player health now {player.Health}");
-                                                        W1Ammo--;
-                                                        break;
-                                                    }
-                                                case 6:
-                                                    {
-                                                        damage = W1AttackDamage * 2;
-                                                        card.TakeDamage(damage);
-                                                        Console.WriteLine("Crit!");
-                                                        Console.WriteLine($"enemy takes {damage}");
-                                                        ResolveHitDie(player, card);
-                                                        Console.WriteLine($" enemy health now {card.Strength}");
-                                                        Console.WriteLine($" player health now {player.Health}");
-                                                        W1Ammo--;
-                                                        currentState = CombatState.ChooseAction;
-                                                        break;
-                                                    }
-                                            }
-
-                                        }
-                                        if (W1Ammo <= 0)
-                                        {
-                                            Console.WriteLine("Weapon empty, please choose another action");
-                                        }
-                                        break;
-                                    }
-
-                                case "2":
-                                    {
-                                        if (W2Ammo > 0) //needs something like IsJammed, IsReloading -> CanFire = false; which then resets on new turn. 
-                                        {
-                                            switch (TryHitTarget())
-                                            {
-                                                case 1:
-                                                    {
-                                                        damage = 0;
-                                                        Console.WriteLine($"enemy takes {damage}");
-                                                        ResolveHitDie(player, card);
-                                                        Console.WriteLine($" enemy health now {card.Strength}");
-                                                        Console.WriteLine($" player health now {player.Health}");
-                                                        W2Ammo--;
-                                                        currentState = CombatState.ChooseAction;
-                                                        break;
-                                                    }
-                                                case 2:
-                                                    {
-                                                        damage = 0;
-                                                        W2IsJammed = true;
-                                                        Console.WriteLine($"enemy takes {damage}");
-                                                        ResolveHitDie(player, card);
-                                                        Console.WriteLine($" enemy health now {card.Strength}");
-                                                        Console.WriteLine($" player health now {player.Health}");
-                                                        currentState = CombatState.ChooseAction;
-                                                        break;
-                                                    }
-                                                case 3:
-                                                    {
-                                                        damage = W2AttackDamage;
-                                                        card.TakeDamage(damage);
-                                                        Console.WriteLine($"enemy takes {damage}");
-                                                        ResolveHitDie(player, card);
-                                                        Console.WriteLine($" enemy health now {card.Strength}");
-                                                        Console.WriteLine($" player health now {player.Health}");
-                                                        W2Ammo--;
-                                                        currentState = CombatState.ChooseAction;
-                                                        break;
-                                                    }
-                                                case 4:
-                                                    {
-                                                        damage = W2AttackDamage;
-                                                        card.TakeDamage(damage);
-                                                        Console.WriteLine($"enemy takes {damage}");
-                                                        ResolveHitDie(player, card);
-                                                        Console.WriteLine($" enemy health now {card.Strength}");
-                                                        Console.WriteLine($" player health now {player.Health}");
-                                                        W2Ammo--;
-                                                        currentState = CombatState.ChooseAction;
-                                                        break;
-                                                    }
-                                                case 5:
-                                                    {
-                                                        damage = W2AttackDamage;
-                                                        card.TakeDamage(damage);
-                                                        Console.WriteLine($"enemy takes {damage}");
-                                                        ResolveHitDie(player, card); 
-                                                        Console.WriteLine($" enemy health now {card.Strength}");
-                                                        Console.WriteLine($" player health now {player.Health}");
-                                                        W2Ammo--;
-                                                        currentState = CombatState.ChooseAction;
-                                                        break;
-                                                    }
-                                                case 6:
-                                                    {
-                                                        damage = W2AttackDamage * 2;
-                                                        card.TakeDamage(damage);
-                                                        Console.WriteLine("Crit!");
-                                                        Console.WriteLine($"enemy takes {damage}");
-                                                        ResolveHitDie(player, card);
-                                                        Console.WriteLine($" enemy health now { card.Strength}");
-                                                        Console.WriteLine($" player health now {player.Health}");
-                                                        W2Ammo--;
-                                                        currentState = CombatState.ChooseAction;
-                                                        break;
-                                                    } 
-                                            }
-
-                                        }
-                                        if (W2Ammo <= 0)
-                                        {
-                                            Console.WriteLine("Weapon empty, please choose another action");
-                                        }
-                                        break;
-                                        
-                                    }
-
-                                default:
-                                    break;
-                            }
-                            break;
-                        }
-
-                    case "2":
-                        {
-                            if(IsHealUsed)
-                            {
-                                Console.WriteLine("Heal drone already used, please choose another action");
-                                currentState = CombatState.ChooseAction;
-                                break;
-                            }
-                            //HEAL case - Extra round to attack, no return fire.
-                            player.Heal(1);
-                            Console.WriteLine($"heal drone activated - Health increased by 1\n health now{player.Health}");
-                            Console.WriteLine("Heal unavailable until next combat");
-                            IsHealUsed = true;
-                            currentState = CombatState.ChooseAction;    
-                            break;
-                        }
-
-                    case "3":
-                        {
-                            //RELOAD case - reload weapon, no return fire. needs to check if weapon is jammed, if so, unjam it. 
-                            Console.WriteLine("Select which weapon slot to reload. \n1) \n2)");
-                            WeaponChoice = Console.ReadLine().ToLower();
-                            switch (WeaponChoice)
-                            {
-                                case "1":
-                                    {
-                                        W1Ammo = 1;
-                                        W1IsJammed = false;
-                                        Console.WriteLine("Weapon 1 reloaded");
-                                        currentState = CombatState.ChooseAction;
-                                        break;
-                                    }
-                                case "2":
-                                    {
-                                        W2Ammo = 2;
-                                        W2IsJammed = false;
-                                        Console.WriteLine("Weapon 2 reloaded");
-                                        currentState = CombatState.ChooseAction;
-                                        break;
-                                    }
-                                default:
-                                    Console.WriteLine("Invalid weapon choice, please choose another action");
-                                    currentState = CombatState.ChooseAction;
-                                    break;
-                            }
-                            break;
-
-                        }
-
-
-                    default:
-                        break;
-                }
-                if (card.Strength == 0)
-                {
-                    currentState = CombatState.CombatEnded;
-                    EndCombat(card);
-                }
+                LogCombat("Cannot perform action - combat is resolving");
+                return;
             }
 
-        }
-
-        private void ResolveHitDie(Player player, Card card)
-        {
-            currentState = CombatState.ResolvingCombat;
-            int result;
-            result = HitDie.Next(1, 4);
-
-            switch(result)
+            switch (ActionChoice?.ToLower())
             {
-                case 1:
-                    {
-                        player.TakeDamage(0);
-                        Console.WriteLine("Enemy missed return fire");
-                        break;
-                    }
-
-                case 2:
-                    {
-                        player.TakeDamage(card.RangeDamage);
-                        Console.WriteLine($"Enemy dealt {card.RangeDamage}");
-                        break;
-                    }
-
-                case 3:
-                    {
-                        player.TakeDamage(card.RangeDamage);
-                        Console.WriteLine($"Enemy dealt {card.RangeDamage}");
-                        break;
-                    }
-
-
-                  default:;
+                case "1": // Attack
+                    HandleAttack();
+                    break;
+                case "2": // Heal
+                    HandleHeal();
+                    break;
+                case "3": // Reload
+                    HandleReload();
+                    break;
+                default:
+                    LogCombat("Invalid action. Choose: Attack (1), Heal (2), or Reload (3)");
                     break;
             }
 
+            CheckCombatEnd();
         }
 
-        public int TryHitTarget()
+        private void HandleAttack() //refactor method to avoid console.wtritelines this was built on in testing stage, many headaches but learned not to code that way ever ever again
         {
-            currentState = CombatState.ReturnFire;
-            int result;
-            result = AttackDie.Next(1, 7);
+            currentState = CombatState.ResolvingCombat;
+            LogCombat("You chose to ATTACK. Select weapon: 1 (Laspistol) or 2 (Battle Rifle)");
+
+            weaponChoiceEvent.Reset();
+            weaponChoiceEvent.WaitOne(5000); // 5 second timeout
+
+            if (string.IsNullOrEmpty(WeaponChoice))
+            {
+                LogCombat("No weapon selected - action cancelled");
+                currentState = CombatState.ChooseAction;
+                return;
+            }
+
+            int damage = 0;
+
+            switch (WeaponChoice)
+            {
+                case "1":
+                    damage = ExecuteWeaponAttack(1);
+                    break;
+                case "2":
+                    damage = ExecuteWeaponAttack(2);
+                    break;
+                default:
+                    LogCombat("Invalid weapon choice");
+                    break;
+            }
+
+            if (damage >= 0)
+            {
+                ResolveHitDie(player, card);
+            }
+
+            currentState = CombatState.ChooseAction;
+        }
+
+        private int ExecuteWeaponAttack(int weaponSlot) //refactor method to avoid console.wtritelines this was built on in testing stage. needed a bit of AI help with the logic, i dont think it did a great job
+        {
+            string weaponName = weaponSlot == 1 ? "Laspistol" : "Battle Rifle";
+            int damage = 0;
+            int ammo = weaponSlot == 1 ? W1Ammo : W2Ammo;
+            bool isJammed = weaponSlot == 1 ? W1IsJammed : W2IsJammed;
+
+            // Check ammo and jam status
+            if (ammo <= 0)
+            {
+                LogCombat($"{weaponName} has no ammo! Choose another weapon or reload.");
+                return -1;
+            }
+
+            if (isJammed)
+            {
+                LogCombat($"{weaponName} is jammed! You must Reload to use it again.");
+                return -1;
+            }
+
+            LogCombat($"You fire your {weaponName}!");
+            int hitResult = TryHitTarget(); //calls tryhit to see if your shot connects
+
+            if (weaponSlot == 1)
+            {
+                switch (hitResult)
+                {
+                    case 1:
+                        LogCombat("MISS! Your shot goes wide.");
+                        damage = 0;
+                        break;
+                    case 2:
+                        W1IsJammed = true;
+                        LogCombat("The Laspistol overheats! It must be reloaded.");
+                        damage = 0;
+                        break;
+                    case 3:
+                        damage = W1AttackDamage;
+                        card.TakeDamage(damage);
+                        LogCombat($"HIT! Enemy takes {damage} damage. Enemy health: {card.Strength}");
+                        break;
+                    case 4:
+                        damage = W1AttackDamage;
+                        card.TakeDamage(damage);
+                        LogCombat($"HIT! Enemy takes {damage} damage. Enemy health: {card.Strength}");
+                        break;
+                    case 5:
+                        damage = W1AttackDamage;
+                        card.TakeDamage(damage);
+                        LogCombat($"HIT! Enemy takes {damage} damage. Enemy health: {card.Strength}");
+                        break;
+                    case 6:
+                        damage = W1AttackDamage * 2;
+                        card.TakeDamage(damage);
+                        LogCombat($"*** CRITICAL HIT! *** Enemy takes {damage} damage. Enemy health: {card.Strength}");
+                        break;
+                }
+                W1Ammo--;
+                LogCombat($"[Laspistol ammo remaining: {W1Ammo}]");
+            }
+            else if (weaponSlot == 2)
+            {
+                switch (hitResult)
+                {
+                    case 1:
+                        LogCombat("MISS! Your shot goes wide.");
+                        damage = 0;
+                        break;
+                    case 2:
+                        W2IsJammed = true;
+                        LogCombat("[WEAPON JAM!] The Battle Rifle jams! It must be reloaded.");
+                        damage = 0;
+                        break;
+                    case 3:
+                        damage = W2AttackDamage;
+                        card.TakeDamage(damage);
+                        LogCombat($"HIT! Enemy takes {damage} damage. Enemy health: {card.Strength}");
+                        break;
+                    case 4:
+                        damage = W2AttackDamage;
+                        card.TakeDamage(damage);
+                        LogCombat($"HIT! Enemy takes {damage} damage. Enemy health: {card.Strength}");
+                        break;
+                    case 5:
+                        damage = W2AttackDamage;
+                        card.TakeDamage(damage);
+                        LogCombat($"HIT! Enemy takes {damage} damage. Enemy health: {card.Strength}");
+                        break;
+                    case 6:
+                        damage = W2AttackDamage * 2;
+                        card.TakeDamage(damage);
+                        LogCombat($"*** CRITICAL HIT! *** Enemy takes {damage} damage. Enemy health: {card.Strength}");
+                        break;
+                }
+                W2Ammo--;
+                LogCombat($"[Battle Rifle ammo remaining: {W2Ammo}]");
+            }
+
+            return damage;
+        }
+
+        private void HandleHeal()
+        {
+            if (IsHealUsed)
+            {
+                LogCombat("Heal drone already used in this combat. Choose another action.");
+                currentState = CombatState.ChooseAction;
+                return;
+            }
+
+            int previousHealth = player.Health;
+            player.Heal(1);
+            LogCombat($"Your heal drone powers on for a moment. Player healed by 1. Health now {player.Health}");
+            
+            IsHealUsed = true;
+            currentState = CombatState.ChooseAction;
+        }
+
+        private void HandleReload() //had to make the reload button reload all weapons. Super annoying otherwise
+        {
+            LogCombat("You RELOAD all weapons.");
+            int prevW1 = W1Ammo;
+            int prevW2 = W2Ammo;
+
+            W1Ammo = 1;
+            W1IsJammed = false;
+            W2Ammo = 2;
+            W2IsJammed = false;
+
+            LogCombat($"[Laspistol] {prevW1} → {W1Ammo} ammo");
+            LogCombat($"[Battle Rifle] {prevW2} → {W2Ammo} ammo");
+            LogCombat("No return fire during reload.");
+            currentState = CombatState.ChooseAction;
+        }
+
+        private void ResolveHitDie(Player player, Card card) //enemy counter attacks after every attack
+        {
+            currentState = CombatState.ResolvingCombat;
+            int result = HitDie.Next(1, 4);
+
             switch (result)
             {
                 case 1:
-                {
-                        Console.WriteLine("miss");
-                        break;
-
-                    }
-
+                    LogCombat("Enemy returns fire, and their shot goes wide");
+                    break;
                 case 2:
-                    {
-                        Console.WriteLine("Jam");
-                        break;
-                    }
-                    case 3:
-                    {
-                        Console.WriteLine("Hit");
-                        break;
-                    }
-                    case 4:
-                    {
-                        Console.WriteLine("Hit");
-                        break;
-                    }
-                case 5:
-                    {
-                        Console.WriteLine("Hit");
-                        break;
-                    }
-                case 6:
-                    {
-                        Console.WriteLine("Double hit!");
-                        break;
-                    }
-
+                    player.TakeDamage(card.RangeDamage);
+                    LogCombat($"Enemy returns fire, HIT! Player takes {card.RangeDamage} damage. Player health: {player.Health}");
+                    break;
+                case 3:
+                    player.TakeDamage(card.RangeDamage);
+                    LogCombat($"Enemy return fire: HIT! Player takes {card.RangeDamage} damage. Player health: {player.Health}");
+                    break;
             }
-
-
-            return result; //just to clear error
         }
 
-
-        public void EndCombat(Card card)
+        public int TryHitTarget() //rolls a dice to see if player attack hits 
         {
-            player.Heal(Reward);
-        //    Console.WriteLine($"Enemy defeated - Healed by {Reward}");
-         //   Console.WriteLine($"Player health now {Health}");
-            EvTurns.LeaveCombat();
-
+            int result = AttackDie.Next(1, 7);
+            return result;
         }
 
+        private void CheckCombatEnd() //checks if card health is 0, ends combat f yes
+        {
+            if (card.Strength <= 0)
+            {
+                currentState = CombatState.CombatEnded;
+                EndCombat(card);
+            }
+        }
 
+        public void EndCombat(Card card) //ends the combat and sets a new card
+        {
+            int rewardAmount = card.CardReward;
+            player.Heal(rewardAmount);
+            LogCombat($"*** VICTORY! ***");
+            LogCombat($"Enemy defeated! You receive {rewardAmount} health reward. Player health: {player.Health}");
+            LogCombat($"--- Combat Ended ---\n");
+            EvTurns.LeaveCombat();
+        }
+
+        private void LogCombat(string message) //message log in the scrollviewer. ugly but needs must
+        {
+            CombatLogUpdated?.Invoke(this, new CombatLogEventArgs { Message = message });
+        }
     }
 }
