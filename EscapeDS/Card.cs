@@ -37,11 +37,12 @@ namespace EscapeDS
         public bool IsActive { get; set; }
 
 
-
+        public event EventHandler StrengthChanged;
 
         public void TakeDamage(int amount)
         {
             Strength -= amount;
+            StrengthChanged?.Invoke(this, EventArgs.Empty);
         }
 
 

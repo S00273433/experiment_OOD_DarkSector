@@ -10,12 +10,13 @@ namespace EscapeDS
     {
         private int health = 12;
         public bool InCombat { get; set; }
-        
+
+        public event EventHandler HealthChanged; // event handler to track health and display in mainwindow player health text block
+
         public int Health
         {
             set
             {
-                
                 if (value < 0)
                 {
                     health = 0; // Ensure health does not go below 0
@@ -28,7 +29,8 @@ namespace EscapeDS
                 {
                     health = value;
                 }
-            } 
+                HealthChanged?.Invoke(this, EventArgs.Empty);
+            }
             get { return health; }
         }
 
@@ -40,17 +42,13 @@ namespace EscapeDS
         public void Heal(int amount)
         {
             Health += amount;
+            HealthChanged?.Invoke(this, EventArgs.Empty);
         }
-
-
-
 
         public Player()
-        { 
-         
+        {
+
         }
-        
-        
     }
     public class Inventory
     {

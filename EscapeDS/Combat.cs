@@ -424,8 +424,8 @@ namespace EscapeDS
         public void EndCombat(Card card)
         {
             player.Heal(Reward);
-            Console.WriteLine($"Enemy defeated - Healed by {Reward}");
-            Console.WriteLine($"Player health now {Health}");
+        //    Console.WriteLine($"Enemy defeated - Healed by {Reward}");
+         //   Console.WriteLine($"Player health now {Health}");
             EvTurns.LeaveCombat();
 
         }

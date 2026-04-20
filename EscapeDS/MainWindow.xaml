@@ -20,11 +20,16 @@
                     <ColumnDefinition Width="33*"/>
                     <ColumnDefinition Width="33*"/>
                 </Grid.ColumnDefinitions>
-
-                <Label Content=" Player Health" FontSize="24" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0"/>
-
-                <Label Content=" Enemy Health" FontSize="24" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0"/>
-
+                
+                <Label x:Name="LBLPlayerHealth" Content=" Player Health" FontSize="24" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0"/>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="10" TextWrapping="WrapWithOverflow" Name="txtPlayerHealth"
+               Text="12" Height="101"/>
+                
+                
+                
+                <Label x:Name="LBLEnemyHealth" Content=" Enemy Health" FontSize="24" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="10" TextWrapping="WrapWithOverflow" Name="txtEnemyHealth" Text="txt" Height="101" />
+                
 
                 <Image x:Name="imgCard" Grid.Row="0" Grid.Column="1" Margin="10" Source="/CardImage/1.jpg"/>
 
@@ -32,10 +37,10 @@
                                Text="txt"/>
 
                 <StackPanel Grid.Row="0" Grid.Column="2" Margin="10" Grid.RowSpan="2">
-                    <Label Content="Action buttons" FontSize="24" HorizontalAlignment="Left"/>
-                    <Button x:Name="btnCombat" Content="Combat" Margin="10"/>
+                    <Label Content="Action buttons" FontSize="24" HorizontalAlignment="Center"/>
+                    <Button x:Name="btnCombat" Content="Combat" Margin="10" Click="btnCombat_Click"/>
                     <Button x:Name="btnDiceRoll" Content="Dice Roll" Margin="10"/>
-                    <Button x:Name="btnOther" Content="Other" Margin="10" Click="btnOther_Click"/>
+                    <Button x:Name="btnOther" Content="Next Card" Margin="10" Click="btnOther_Click"/>
                 </StackPanel>
 
 
@@ -51,13 +56,13 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Button x:Name="btnFlank" Content="Combat" Grid.Row="0" Grid.Column="0" Margin="5"/>
+                    <Button x:Name="btnFlank" Content="Flank" Grid.Row="0" Grid.Column="0" Margin="5"/>
                     <Button x:Name="btnHeal" Content="Heal" Grid.Row="0" Grid.Column="1" Margin="5"/>
                     <Button x:Name="btnLoot" Content="Reload" Grid.Row="0" Grid.Column="2" Margin="5"/>
 
-                    <Button x:Name="btnCard1" Content="Card 1" Grid.Row="1" Grid.Column="0" Margin="5" Visibility="Hidden"/>
-                    <Button x:Name="btnCard2" Content="Card 2" Grid.Row="1" Grid.Column="1" Margin="5" Visibility="Hidden"/>
-                    <Button x:Name="btnCard3" Content="Card 3" Grid.Row="1" Grid.Column="2" Margin="5" Visibility="Hidden"/>
+                    <Button x:Name="btnCard1" Content="Laspistol" Grid.Row="1" Grid.Column="0" Margin="5" Visibility="Visible"/>
+                    <Button x:Name="btnCard2" Content="Battle Rifle" Grid.Row="1" Grid.Column="1" Margin="5" Visibility="Visible"/>
+                    <Button x:Name="btnCard3" Content="Reload" Grid.Row="1" Grid.Column="2" Margin="5" Visibility="Visible"/>
 
                     <TextBlock Grid.Row="2" Grid.Column="0" Margin="5" TextWrapping="WrapWithOverflow" Grid.ColumnSpan="3" Text="Flank: Attempt to outmaneuver your enemy, increasing your chances of landing a successful attack."/>
 

@@ -21,9 +21,9 @@ namespace EscapeDS
         GameState CurrentGameState;
 
         private Card[] cardSequence;
-        private int currentCardIndex = -1;
+        private int currentCardIndex = -1; //list so it can be accessed in mainwindow using NextCard, which replaced a part of PlayDeck from an earlier version
 
-        public EventsTurns(Deck deck, Player player, Card currentCard)
+        public EventsTurns(Deck deck, Player player, Card currentCard, Combat combat)
         {
             deck.ShuffleCards();
             this.deck = deck;
@@ -64,7 +64,7 @@ namespace EscapeDS
             NextCard();
         }
 
-        public void NextCard()
+        public void NextCard() //used to change the card displayed in mainwindow
         {
             currentCardIndex++;
             if (currentCardIndex < cardSequence.Length && cardSequence[currentCardIndex] != null)
