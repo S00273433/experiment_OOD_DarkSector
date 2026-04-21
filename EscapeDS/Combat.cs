@@ -141,7 +141,7 @@ namespace EscapeDS
 
             if (damage >= 0)
             {
-                ResolveHitDie(player, card);
+                ResolveHitDie();
             }
 
             currentState = CombatState.ChooseAction;
@@ -185,22 +185,22 @@ namespace EscapeDS
                         break;
                     case 3:
                         damage = W1AttackDamage;
-                        card.TakeDamage(damage);
+                        this.card.TakeDamage(damage);
                         LogCombat($"HIT! Enemy takes {damage} damage. Enemy health: {card.Strength}");
                         break;
                     case 4:
                         damage = W1AttackDamage;
-                        card.TakeDamage(damage);
+                        this.card.TakeDamage(damage);
                         LogCombat($"HIT! Enemy takes {damage} damage. Enemy health: {card.Strength}");
                         break;
                     case 5:
                         damage = W1AttackDamage;
-                        card.TakeDamage(damage);
+                        this.card.TakeDamage(damage);
                         LogCombat($"HIT! Enemy takes {damage} damage. Enemy health: {card.Strength}");
                         break;
                     case 6:
                         damage = W1AttackDamage * 2;
-                        card.TakeDamage(damage);
+                        this.card.TakeDamage(damage);
                         LogCombat($"*** CRITICAL HIT! *** Enemy takes {damage} damage. Enemy health: {card.Strength}");
                         break;
                 }
@@ -222,22 +222,22 @@ namespace EscapeDS
                         break;
                     case 3:
                         damage = W2AttackDamage;
-                        card.TakeDamage(damage);
+                        this.card.TakeDamage(damage);
                         LogCombat($"HIT! Enemy takes {damage} damage. Enemy health: {card.Strength}");
                         break;
                     case 4:
                         damage = W2AttackDamage;
-                        card.TakeDamage(damage);
+                        this.card.TakeDamage(damage);
                         LogCombat($"HIT! Enemy takes {damage} damage. Enemy health: {card.Strength}");
                         break;
                     case 5:
                         damage = W2AttackDamage;
-                        card.TakeDamage(damage);
+                        this.card.TakeDamage(damage);
                         LogCombat($"HIT! Enemy takes {damage} damage. Enemy health: {card.Strength}");
                         break;
                     case 6:
                         damage = W2AttackDamage * 2;
-                        card.TakeDamage(damage);
+                        this.card.TakeDamage(damage);
                         LogCombat($"*** CRITICAL HIT! *** Enemy takes {damage} damage. Enemy health: {card.Strength}");
                         break;
                 }
@@ -282,7 +282,7 @@ namespace EscapeDS
             currentState = CombatState.ChooseAction;
         }
 
-        private void ResolveHitDie(Player player, Card card) //enemy counter attacks after every attack
+        private void ResolveHitDie() //enemy counter attacks after every attack
         {
             currentState = CombatState.ResolvingCombat;
             int result = HitDie.Next(1, 4);
@@ -293,11 +293,11 @@ namespace EscapeDS
                     LogCombat("Enemy returns fire, and their shot goes wide");
                     break;
                 case 2:
-                    player.TakeDamage(card.RangeDamage);
+                    player.TakeDamage(this.card.RangeDamage);
                     LogCombat($"Enemy returns fire, HIT! Player takes {card.RangeDamage} damage. Player health: {player.Health}");
                     break;
                 case 3:
-                    player.TakeDamage(card.RangeDamage);
+                    player.TakeDamage(this.card.RangeDamage);
                     LogCombat($"Enemy return fire: HIT! Player takes {card.RangeDamage} damage. Player health: {player.Health}");
                     break;
             }

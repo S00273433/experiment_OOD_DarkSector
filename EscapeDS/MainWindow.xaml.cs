@@ -49,6 +49,7 @@ namespace EscapeDS
         {
             UpdateCardDisplay();
             UpdatePlayerHealthDisplay();
+            Update_CardStrengthDisplay();
         }
 
         private void EvTurns_CurrentCardChanged(object sender, EventArgs e)

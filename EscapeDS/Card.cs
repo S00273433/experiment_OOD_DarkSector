@@ -50,7 +50,7 @@ namespace EscapeDS
 
         public override string ToString()
         {
-            return $"{CardID} {CardName} \n{CardDescription}";
+            return $"{CardID} {CardName} \n{CardDescription}\n {Strength}";
         }
 
     }

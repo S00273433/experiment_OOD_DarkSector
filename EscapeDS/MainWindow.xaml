@@ -21,25 +21,25 @@
                     <ColumnDefinition Width="33*"/>
                 </Grid.ColumnDefinitions>
                 
-                <Label x:Name="LBLPlayerHealth" Content=" Player Health" FontSize="24" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0"/>
+                <Label x:Name="LBLPlayerHealth" Content=" Player Health" FontSize="24" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="0" FontFamily="Cascadia Code"/>
                     <TextBlock Grid.Row="0" Grid.Column="0" Margin="10" TextWrapping="WrapWithOverflow" Name="txtPlayerHealth"
-               Text="12" Height="101"/>
+               Text="12" Height="101" FontSize="24" HorizontalAlignment="Center" FontFamily="Cascadia Code"/>
                 
                 
                 
-                <Label x:Name="LBLEnemyHealth" Content=" Enemy Health" FontSize="24" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0"/>
-                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="10" TextWrapping="WrapWithOverflow" Name="txtEnemyHealth" Text="txt" Height="101" />
+                <Label x:Name="LBLEnemyHealth" Content=" Enemy Health" FontSize="24" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Center" FontFamily="Cascadia Code"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="10" TextWrapping="WrapWithOverflow" Name="txtEnemyHealth" Text="txt" Height="101" HorizontalAlignment="Center" FontSize="20" FontFamily="Cascadia Code" />
                 
 
                 <Image x:Name="imgCard" Grid.Row="0" Grid.Column="1" Margin="10" Source="/CardImage/start.jpg"/>
 
                 <TextBlock Grid.Row="1" Grid.Column="1" Margin="10" TextWrapping="WrapWithOverflow" Name="txtStory"
-                               Text="txt"/>
+                               Text="txt" FontFamily="Cascadia Code"/>
 
                 <StackPanel Grid.Row="0" Grid.Column="2" Margin="10" Grid.RowSpan="2">
-                    <Label Content="Action buttons" FontSize="24" HorizontalAlignment="Center"/>
-                    <Button x:Name="btnCombat" Content="Combat" Margin="10" Click="btnCombat_Click"/>
-                    <Button x:Name="btnOther" Content="Next Card" Margin="10" Click="btnOther_Click"/>
+                    <Label Content="Action buttons" FontSize="24" HorizontalAlignment="Center" FontFamily="Cascadia Code"/>
+                    <Button x:Name="btnCombat" Content="Combat" Margin="10" Click="btnCombat_Click" FontFamily="Cascadia Code"/>
+                    <Button x:Name="btnOther" Content="Next Card" Margin="10" Click="btnOther_Click" FontFamily="Cascadia Code"/>
                 </StackPanel>
 
 
@@ -59,36 +59,16 @@
                         <TextBlock x:Name="txtCombatInfo" TextWrapping="WrapWithOverflow" Foreground="Black"/>
                     </ScrollViewer>
 
-                    <Button x:Name="btnHeal" Content="Heal" Grid.Row="1" Grid.Column="0" Margin="5" Click="btnHeal_Click"/>
-                    <Button x:Name="btnPistol" Content="Laspistol" Grid.Row="2" Grid.Column="0" Margin="5" Visibility="Hidden" Click="btnPistol_Click"/>
-                    <Button x:Name="btnRifle" Content="Battle Rifle" Grid.Row="2" Grid.Column="1" Margin="5" Visibility="Hidden" Click="btnRifle_Click"/>
-                    <Button x:Name="btnReload" Content="Reload All" Grid.Row="2" Grid.Column="2" Margin="5" Visibility="Hidden" Click="btnReload_Click"/>
+                    <Button x:Name="btnHeal" Content="Heal" Grid.Row="1" Grid.Column="0" Margin="5" Click="btnHeal_Click" FontFamily="Cascadia Code"/>
+                    <Button x:Name="btnPistol" Content="Laspistol" Grid.Row="2" Grid.Column="0" Margin="5" Visibility="Hidden" Click="btnPistol_Click" FontFamily="Cascadia Code"/>
+                    <Button x:Name="btnRifle" Content="Battle Rifle" Grid.Row="2" Grid.Column="1" Margin="5" Visibility="Hidden" Click="btnRifle_Click" FontFamily="Cascadia Code"/>
+                    <Button x:Name="btnReload" Content="Reload All" Grid.Row="2" Grid.Column="2" Margin="5" Visibility="Hidden" Click="btnReload_Click" FontFamily="Cascadia Code"/>
                 </Grid>
 
             </Grid>
         </TabItem>
 
-        <TabItem Header="Crew">
-            <Grid Background="LightBlue">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="21*"/>
-                    <ColumnDefinition Width="773*"/>
-                </Grid.ColumnDefinitions>
-
-                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="24" Margin="257,10,0,0" Grid.Column="1"><Run Language="en-ie" Text="Escape the dark sector"/></TextBlock>
-                <Image x:Name="CrewPic1" HorizontalAlignment="Left" Height="197" Margin="257,42,0,0" VerticalAlignment="Top" Width="112" OpacityMask="Red"  Grid.Column="1"/>
-                <Image x:Name="CrewPic1_Copy" HorizontalAlignment="Left" Height="197" Margin="376,42,0,0" VerticalAlignment="Top" Width="112" OpacityMask="Red"  Grid.Column="1"/>
-                <Label Content="Crew 1" HorizontalAlignment="Left" Height="27" Margin="285,237,0,0" VerticalAlignment="Top" Width="56" Grid.Column="1"/>
-                <Label Content="Crew 2" HorizontalAlignment="Left" Height="27" Margin="404,237,0,0" VerticalAlignment="Top" Width="56" Grid.Column="1"/>
-                <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="190" Margin="493,42,0,0" VerticalAlignment="Top" Width="194" Grid.Column="1"/>
-                <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="190" Margin="58,42,0,0" VerticalAlignment="Top" Width="194" Grid.Column="1"/>
-                <Label Content="Inventory" HorizontalAlignment="Left" Height="27" Margin="541,237,0,0" VerticalAlignment="Top" Width="88" Grid.Column="1"/>
-                <Label Content="Inventory" HorizontalAlignment="Left" Height="27" Margin="111,237,0,0" VerticalAlignment="Top" Width="88" Grid.Column="1"/>
-                <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="73" Margin="58,269,0,0" VerticalAlignment="Top" Width="193" Grid.Column="1"/>
-                <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="67" Margin="495,275,0,0" VerticalAlignment="Top" Width="192" Grid.Column="1"/>
-
-            </Grid>
-        </TabItem>
+        
     </TabControl>
 
 </Window>
